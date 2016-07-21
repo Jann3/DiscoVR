@@ -4231,10 +4231,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     max-height: 200px;
   }
 }
+
+/* added .container-fluid > .navbar */
 .container > .navbar-header,
 .container-fluid > .navbar-header,
 .container > .navbar-collapse,
-.container-fluid > .navbar-collapse {
+.container-fluid > .navbar-collapse,
+.container-fluid > .navbar {
   margin-right: -15px;
   margin-left: -15px;
 }
