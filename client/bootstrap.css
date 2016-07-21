@@ -4232,7 +4232,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 
-/* added .container-fluid > .navbar */
 .container > .navbar-header,
 .container-fluid > .navbar-header,
 .container > .navbar-collapse,
