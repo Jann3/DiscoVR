@@ -5,20 +5,24 @@ Meteor.startup(function () {
 
 // HTTP GET from oculus for Rift
 
-HTTP.call('GET', 'https://www.oculus.com/experiences/rift/', {headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'}, followRedirects: false }, function(error, response){
-if (error){
-  console.log(error);
-} else {
+HTTP.call('GET',
+          'https://www.oculus.com/experiences/rift/',
+          { headers: { 'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'},
+          followRedirects: false }, function(error, response){
 
-  // load response into cheerio
+  if (error){
+    console.log(error);
+  } else {
 
-  var $ = cheerio.load(response.content);
+    // load response into cheerio
 
-  // search for Browse all
+    var $ = cheerio.load(response.content);
 
-  var browseAll = $('._4my5:contains("Browse all")').html();
+    // search for Browse all
 
-  console.log(browseAll);
+    var browseAll = $('._4my5:contains("Browse all")').html();
 
-  }
-});
+    console.log(browseAll);
+
+    }
+  });
