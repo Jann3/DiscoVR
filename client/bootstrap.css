@@ -4363,13 +4363,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 @media (min-width: 768px) {
   .navbar-nav {
     float: none;
-    /*vertical-align: top;*/
     text-align: center;
     margin: 0;
   }
   .navbar-nav > li {
     vertical-align: top;
-    /*float: none;*/
     float: none;
     display: inline-block;
   }
@@ -4490,8 +4488,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 @media (min-width: 768px) {
   .navbar-text {
     float: left;
-    margin-left: 15px;
-    margin-right: 5px;
+    margin-left: 10px;
+    margin-right: 0px;
   }
 }
 @media (min-width: 768px) {
