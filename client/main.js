@@ -7,9 +7,12 @@ Template.navbar.events({
     event.preventDefault();
 
     if($(event.currentTarget).closest("li").hasClass("active")){
-      delete Session.keys['headset'];
+      // if already active, remove session, active and focus
+      Session.set('headset', undefined);
       $(".js-headset").parents().removeClass("active");
+      $(".js-headset").blur();
     } else {
+      // else add to session and add active class
       Session.set('headset', $(event.currentTarget).closest("a").html());
       $(".js-headset").parents().removeClass("active");
       $(event.currentTarget).closest("li").addClass("active"); 
