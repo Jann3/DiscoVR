@@ -1,3 +1,7 @@
+// define VR collection
+
+VR = new Mongo.Collection('VR');
+
 Template.navbar.events({
   'click .js-headset': function (event) {
     event.preventDefault();

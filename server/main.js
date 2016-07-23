@@ -1,7 +1,22 @@
+// define VR collection
+
+VR = new Mongo.Collection('VR');
+
 Meteor.startup(function () {
 // code to run on server at startup
 
-});
+    if (!VR.findOne()){
+
+      // if nothing in the database create sample dataset
+
+      VR.insert({title: "Elite Dangerous", rift_id: "988773191157765", steam_id: "359320", category: "games", support_rift: true, support_vive: true, singleplayer: true, multiplayer: true, support_gamepad: true, support_motion: false, support_kbm: true});
+
+      console.log('inserted sample data');
+      
+    } // FindOne 
+
+}); // End startup
+
 
 // HTTP GET from oculus for Rift
 
@@ -25,4 +40,4 @@ HTTP.call('GET',
     console.log(browseAll);
 
     }
-  });
+  }); // End HTTP GET
