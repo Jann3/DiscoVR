@@ -10,6 +10,8 @@ Meteor.startup(function () {
       // if nothing in the database create sample dataset
 
       VR.insert({title: "Elite Dangerous", rift_id: "988773191157765", steam_id: "359320", category: "games", support_rift: true, support_vive: true, singleplayer: true, multiplayer: true, support_gamepad: true, support_motion: false, support_kbm: true});
+      VR.insert({title: "Lucky's Tale", rift_id: "909129545868758", category: "games", support_rift: true, support_vive: false, singleplayer: true, multiplayer: false, support_gamepad: true, support_motion: false, support_kbm: false});
+      VR.insert({title: "Out of Ammo", steam_id: "451840", category: "games", support_rift: false, support_vive: true, singleplayer: true, multiplayer: true, support_gamepad: false, support_motion: true, support_kbm: false});
 
       console.log('inserted sample data');
       
@@ -41,3 +43,9 @@ HTTP.call('GET',
 
     }
   }); // End HTTP GET
+
+  // Publish entire VR
+
+  Meteor.publish('VR', function(){
+    return VR.find({});
+  });

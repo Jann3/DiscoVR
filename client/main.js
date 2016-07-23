@@ -1,6 +1,7 @@
-// define VR collection
+// define VR collection and subscribe
 
 VR = new Mongo.Collection('VR');
+Meteor.subscribe('VR');
 
 Template.navbar.events({
   'click .js-headset': function (event) {
@@ -20,6 +21,18 @@ Template.navbar.events({
 
     // echo headset from session
     console.log(Session.get('headset'));
+  }
+});
+
+Template.vr_list.helpers({
+  supported_title:function(){
+    if(Session.get('headset')=='Rift'){
+      return VR.find({support_rift: true});
+    } else if (Session.get('headset')=='Vive'){
+      return VR.find({support_vive: true});
+    } else {
+      return VR.find();
+    }
   }
 });
 

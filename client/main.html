@@ -4,6 +4,8 @@
 
 <body>
   {{> navbar}}
+  {{> vr_list}}
+  {{> footer}}
 </body>
 
 <template name="navbar">
@@ -37,5 +39,64 @@
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
+</div>
+</template>
+
+<template name="vr_list">
+<div class="container-fluid">
+  <div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Features</th>
+        <th>Available on </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Elite Dangerous</td>
+        <td>
+          <i class="fa fa-user" aria-hidden="true" title="singleplayer"></i>
+          <i class="fa fa-users" aria-hidden="true" title="multiplayer"></i>
+          <i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i>
+          <i class="fa fa-keyboard-o" aria-hidden="true" title="supports keyboard and mouse"></i>
+        </td>
+        <td>
+          <a href="https://www.oculus.com/experiences/rift/988773191157765/" target="_blank">Oculus</a>, 
+          <a href="http://store.steampowered.com/app/359320/" target="_blank">Steam</a></td>
+      </tr>
+      <tr>
+        <td>Elite Dangerous</td>
+        <td>
+          <i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i>
+          <i class="fa fa-keyboard-o" aria-hidden="true" title="supports keyboard and mouse"></i>
+          <i class="fa fa-sign-language" aria-hidden="true"></i>
+        </td>
+        <td>
+          <a href="https://www.oculus.com/experiences/rift/988773191157765/" target="_blank">Oculus</a>, 
+          <a href="http://store.steampowered.com/app/359320/" target="_blank">Steam</a></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+    <!-- Functionality testing -->
+    {{#each supported_title}}
+    {{> vr_title}}
+    {{/each}}
+
+
+</template>
+
+<template name="vr_title">
+  <!--  Splitting into own template later -->
+  {{title}} {{rift_id}} {{steam_id}} {{#if support_rift}} support rift {{/if}} {{#if support_vive}} support vive {{/if}} <br />
+</template>
+
+<template name="footer">
+<div class="container-fluid">
+  Site by Janne
 </div>
 </template>
