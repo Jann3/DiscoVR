@@ -49,6 +49,7 @@
     <thead>
       <tr>
         <th>Title</th>
+        <th>Platforms</th>
         <th>Features</th>
         <th>Available on </th>
       </tr>
@@ -56,6 +57,7 @@
     <tbody>
       <tr>
         <td>Elite Dangerous</td>
+        <td>Rift, Vive</td>
         <td>
           <i class="fa fa-user" aria-hidden="true" title="singleplayer"></i>
           <i class="fa fa-users" aria-hidden="true" title="multiplayer"></i>
@@ -68,6 +70,7 @@
       </tr>
       <tr>
         <td>Elite Dangerous</td>
+        <td>Rift, Vive</td>
         <td>
           <i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i>
           <i class="fa fa-keyboard-o" aria-hidden="true" title="supports keyboard and mouse"></i>
@@ -92,7 +95,9 @@
 
 <template name="vr_title">
   <!--  Splitting into own template later -->
-  {{title}} {{rift_id}} {{steam_id}} {{#if support_rift}} support rift {{/if}} {{#if support_vive}} support vive {{/if}} <br />
+  {{title}} {{rift_id}} {{steam_id}} {{#if support_rift}} rift {{/if}} {{#if support_vive}} vive {{/if}}
+  {{{getSteamLink support_rift support_vive steam_id}}}
+  {{{getOculusLink support_rift support_vive rift_id}}}  <br />
 </template>
 
 <template name="footer">
