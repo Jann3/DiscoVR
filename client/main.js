@@ -3,35 +3,76 @@
 VR = new Mongo.Collection('VR');
 Meteor.subscribe('VR');
 
-Template.navbar.events({
+// set up the main template the the router will use to build pages
+Router.configure({
+  layoutTemplate: 'layout'
+});
+// specify the top level route, the page users see when they arrive at the site
+Router.route('/', function () {
+  this.render('navbar', {to:'header'});
+  this.render('vr_list', {to:'main'});
+  this.render('site_info', {to:'footer'}); 
+});
+
+Template.layout.events({
   'click .js-headset': function (event) {
     event.preventDefault();
 
-    if($(event.currentTarget).closest("li").hasClass("active")){
+    var headset_html = $(event.currentTarget).closest('a').html();
+
+    console.log('html' + headset_html);
+
+    if(Session.get('headset')==headset_html){
       // if already active, remove session, active and focus
       Session.set('headset', undefined);
-      $(".js-headset").parents().removeClass("active");
-      $(".js-headset").blur();
+      $('.navbar .js-headset').parent('li').removeClass('active');
+      $('.navbar .js-headset').blur();
+
     } else {
       // else add to session and add active class
-      Session.set('headset', $(event.currentTarget).closest("a").html());
-      $(".js-headset").parents().removeClass("active");
-      $(event.currentTarget).closest("li").addClass("active"); 
+      Session.set('headset', headset_html);
+      $('.navbar .js-headset').parent('li').removeClass('active');
+      $('.navbar .js-headset:contains("'+ headset_html +'")').parent('li').addClass('active'); 
     }
 
     // echo headset from session
     console.log(Session.get('headset'));
-  }
+  },
+   'click .js-gamepad': function (event) {
+    event.preventDefault();
+
+
+    if(Session.get('support_gamepad')==true){
+      // if already active, remove session, active and focus
+      Session.set('support_gamepad', undefined);
+      $('.navbar .js-gamepad').parent('li').removeClass('active');
+      $('.navbar .js-gamepad').blur();
+
+    } else {
+      // else add to session and add active class
+      Session.set('support_gamepad', true);
+      $('.navbar .js-gamepad').parent('li').addClass('active'); 
+    }
+
+    // echo headset from session
+    console.log(Session.get('support_gamepad'));
+  }, 
 });
 
 Template.vr_list.helpers({
   supported_title:function(){
+    //var gamepad = false;
+
+    //if(Session.get('support_gamepad')==true)
+
+
+
     if(Session.get('headset')=='Rift'){
       return VR.find({support_rift: true});
     } else if (Session.get('headset')=='Vive'){
       return VR.find({support_vive: true});
     } else {
-      return VR.find();
+      return VR.find({});
     }
   }
 });

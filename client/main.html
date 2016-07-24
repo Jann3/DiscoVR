@@ -3,10 +3,13 @@
 </head>
 
 <body>
-  {{> navbar}}
-  {{> vr_list}}
-  {{> footer}}
 </body>
+
+<template name="layout">
+  {{> yield "header"}}
+  {{> yield "main"}}
+  {{> yield "footer"}}
+</template>
 
 <template name="navbar">
 <div class="container-fluid">
@@ -29,12 +32,12 @@
           <li><a href="#" class="js-headset">Rift</a></li>
           <li><a href="#" class="js-headset">Vive</a></li>
           <li><p class="navbar-text">Controller:</p></li>
-          <li><a href="#" class="js-controller">Gamepad</a></li>
-          <li><a href="#" class="js-controller">Motion</a></li>
-          <li><a href="#" class="js-controller">Mouse / KB</a></li>
+          <li><a href="#" class="js-gamepad">Gamepad</a></li>
+          <li><a href="#" class="js-motion">Motion</a></li>
+          <li><a href="#" class="js-kbm">Mouse / KB</a></li>
           <li><p class="navbar-text">Genre:</p></li>
-          <li><a href="#" class="js-genre">Singleplayer</a></li>
-          <li><a href="#" class="js-genre">Multiplayer</a></li>
+          <li><a href="#" class="js-singleplayer">Singleplayer</a></li>
+          <li><a href="#" class="js-multiplayer">Multiplayer</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -71,13 +74,13 @@
         <td>
           {{#if support_rift}}
             {{#if support_vive}}
-            Rift, Vive
+            <a href="#" class="js-headset">Rift</a>, <a href="#" class="js-headset">Vive</a>
             {{else}}
-            Rift
+            <a href="#" class="js-headset">Rift</a>
             {{/if}}
           {{else}}
             {{#if support_vive}}
-            Vive
+            <a href="#" class="js-headset">Vive</a>
             {{/if}}
           {{/if}}
         </td>
@@ -89,7 +92,7 @@
           <i class="fa fa-users" aria-hidden="true" title="multiplayer"></i>
           {{/if}}
           {{#if support_gamepad}}
-          <i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i>
+          <a href="#" class="js-gamepad"><i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i></a>
           {{/if}}
           {{#if support_motion}}
           <i class="fa fa-hand-paper-o" aria-hidden="true" title="supports motion controllers"></i>
@@ -106,7 +109,7 @@
 
 </template>
 
-<template name="footer">
+<template name="site_info">
 <div class="container-fluid">
   Site by Janne
 </div>

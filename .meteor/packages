@@ -22,3 +22,4 @@ http
 fermuch:cheerio
 twbs:bootstrap
 fortawesome:fontawesome
+iron:router
