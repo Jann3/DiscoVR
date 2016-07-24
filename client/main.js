@@ -74,7 +74,7 @@ Template.vr_title.helpers({
     if(Session.get('headset')=='Rift'&&support_rift==true){
       return '<a href="https://www.oculus.com/experiences/rift/' + rift_id + '/" target="_blank">Oculus</a>';
     } else if (Session.get('headset')=='Vive'&&support_vive==true){
-      return '<a href="https://www.oculus.com/experiences/rift/' + rift_id + '/" target="_blank">Oculus</a>';
+      return false;
     } else {
       return false;
     }
