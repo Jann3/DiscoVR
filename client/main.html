@@ -55,49 +55,55 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Elite Dangerous</td>
-        <td>Rift, Vive</td>
-        <td>
-          <i class="fa fa-user" aria-hidden="true" title="singleplayer"></i>
-          <i class="fa fa-users" aria-hidden="true" title="multiplayer"></i>
-          <i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i>
-          <i class="fa fa-keyboard-o" aria-hidden="true" title="supports keyboard and mouse"></i>
-        </td>
-        <td>
-          <a href="https://www.oculus.com/experiences/rift/988773191157765/" target="_blank">Oculus</a>, 
-          <a href="http://store.steampowered.com/app/359320/" target="_blank">Steam</a></td>
-      </tr>
-      <tr>
-        <td>Elite Dangerous</td>
-        <td>Rift, Vive</td>
-        <td>
-          <i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i>
-          <i class="fa fa-keyboard-o" aria-hidden="true" title="supports keyboard and mouse"></i>
-          <i class="fa fa-sign-language" aria-hidden="true"></i>
-        </td>
-        <td>
-          <a href="https://www.oculus.com/experiences/rift/988773191157765/" target="_blank">Oculus</a>, 
-          <a href="http://store.steampowered.com/app/359320/" target="_blank">Steam</a></td>
-      </tr>
+    {{#each supported_title}}
+    {{> vr_title}}
+    {{/each}}
     </tbody>
   </table>
   </div>
 </div>
 
-    <!-- Functionality testing -->
-    {{#each supported_title}}
-    {{> vr_title}}
-    {{/each}}
-
-
 </template>
 
 <template name="vr_title">
-  <!--  Splitting into own template later -->
-  {{title}} {{rift_id}} {{steam_id}} {{#if support_rift}} rift {{/if}} {{#if support_vive}} vive {{/if}}
-  {{{getSteamLink support_rift support_vive steam_id}}}
-  {{{getOculusLink support_rift support_vive rift_id}}}  <br />
+      <tr>
+        <td>{{title}}</td>
+        <td>
+          {{#if support_rift}}
+            {{#if support_vive}}
+            Rift, Vive
+            {{else}}
+            Rift
+            {{/if}}
+          {{else}}
+            {{#if support_vive}}
+            Vive
+            {{/if}}
+          {{/if}}
+        </td>
+        <td>
+          {{#if singleplayer}}
+          <i class="fa fa-user" aria-hidden="true" title="singleplayer"></i>
+          {{/if}}
+          {{#if multiplayer}}
+          <i class="fa fa-users" aria-hidden="true" title="multiplayer"></i>
+          {{/if}}
+          {{#if support_gamepad}}
+          <i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i>
+          {{/if}}
+          {{#if support_motion}}
+          <i class="fa fa-hand-paper-o" aria-hidden="true" title="supports motion controllers"></i>
+          {{/if}}
+          {{#if support_kbm}}
+          <i class="fa fa-keyboard-o" aria-hidden="true" title="supports keyboard and mouse"></i>
+          {{/if}}
+        </td>
+        <td>
+          {{{getOculusLink support_rift support_vive rift_id}}}
+          {{{getSteamLink support_rift support_vive steam_id}}}
+        </td>
+      </tr>
+
 </template>
 
 <template name="footer">
