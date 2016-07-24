@@ -86,19 +86,29 @@
         </td>
         <td>
           {{#if singleplayer}}
-          <i class="fa fa-user" aria-hidden="true" title="singleplayer"></i>
+          <a href="#" class="js-singleplayer">
+            <i class="fa fa-user" aria-hidden="true" title="singleplayer"></i>
+          </a>
           {{/if}}
           {{#if multiplayer}}
-          <i class="fa fa-users" aria-hidden="true" title="multiplayer"></i>
+          <a href="#" class="js-multiplayer">
+            <i class="fa fa-users" aria-hidden="true" title="multiplayer"></i>
+          </a>
           {{/if}}
           {{#if support_gamepad}}
-          <a href="#" class="js-gamepad"><i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i></a>
+          <a href="#" class="js-gamepad">
+            <i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i>
+          </a>
           {{/if}}
           {{#if support_motion}}
-          <i class="fa fa-hand-paper-o" aria-hidden="true" title="supports motion controllers"></i>
+          <a href="#" class="js-motion">
+            <i class="fa fa-hand-paper-o" aria-hidden="true" title="supports motion controllers"></i>
+          </a>
           {{/if}}
           {{#if support_kbm}}
-          <i class="fa fa-keyboard-o" aria-hidden="true" title="supports keyboard and mouse"></i>
+          <a href="#" class="js-kbm">
+            <i class="fa fa-keyboard-o" aria-hidden="true" title="supports keyboard and mouse"></i>
+          </a>
           {{/if}}
         </td>
         <td>
