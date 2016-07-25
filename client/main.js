@@ -15,13 +15,8 @@ Router.route('/', function () {
 });
 
 // define default_search regexp, use it to initialize a reactive var for searches
-
-// var default_search = /.*.*/
-// , search = new ReactiveVar(default_search);
-
-
-var search = new ReactiveVar(/.*.*/)
-, default_search = /.*.*/;
+var default_search = /.*.*/
+, search = new ReactiveVar(default_search);
 
 Template.layout.events({
   'click .js-headset': function (event) {
@@ -152,17 +147,45 @@ Template.layout.events({
     // echo headset from session
     console.log(Session.get('support_multiplayer'));
   },
+  'submit #search_form':function(event){
+    // prevent submit and log input
+    event.preventDefault();
+
+    console.log('search_input ', search_input.value);
+
+    // trim whitespace from search input
+    var search_trim_whitespace = search_input.value.trim();
+
+    // trim special characters
+    var trim_special_chars = search_trim_whitespace.replace(/[^a-zA-Z0-9'., ]/g, "");
+
+    // replace whitespace with regex AND operator
+    var whitespace_regex = trim_special_chars.replace(/ /g, ')(?=.*');
+
+    // trim duplicate regex insertions of (?=.*) caused by extra whitespace
+    var trim_excess_regex = whitespace_regex.replace(/\(\?=.\*\)/g,'');
+
+    // build final regex
+    var search_regex = new RegExp("(?=.*" +trim_excess_regex+ ").*","i");
+
+    // log output regex and set it as search
+    console.log('search_regex', search_regex);
+    search.set(search_regex); 
+
+    //Router.go('/');
+  }, 
 });
 
 Template.vr_list.helpers({
   supported_title:function(){
-    //var gamepad = false;
 
+    // create search object
     var search_obj = new Object();
+
+    // get search string from reactive var
     search_obj.title = search.get();
 
-
-
+    // add properties to search object dependant on session
     if(Session.get('headset')=='Rift'){
       search_obj.support_rift = true;
     } else if (Session.get('headset')=='Vive'){
@@ -189,8 +212,10 @@ Template.vr_list.helpers({
       search_obj.support_multiplayer = true;
     }
 
+    // echo final search object for debugging
     console.log(search_obj);
 
+    // query database with search object
     return VR.find(search_obj);
   }
 });
