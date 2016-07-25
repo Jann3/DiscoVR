@@ -1,5 +1,4 @@
 // define VR collection and subscribe
-
 VR = new Mongo.Collection('VR');
 Meteor.subscribe('VR');
 
@@ -7,12 +6,22 @@ Meteor.subscribe('VR');
 Router.configure({
   layoutTemplate: 'layout'
 });
+
 // specify the top level route, the page users see when they arrive at the site
 Router.route('/', function () {
   this.render('navbar', {to:'header'});
   this.render('vr_list', {to:'main'});
   this.render('site_info', {to:'footer'}); 
 });
+
+// define default_search regexp, use it to initialize a reactive var for searches
+
+// var default_search = /.*.*/
+// , search = new ReactiveVar(default_search);
+
+
+var search = new ReactiveVar(/.*.*/)
+, default_search = /.*.*/;
 
 Template.layout.events({
   'click .js-headset': function (event) {
@@ -149,17 +158,40 @@ Template.vr_list.helpers({
   supported_title:function(){
     //var gamepad = false;
 
-    //if(Session.get('support_gamepad')==true)
+    var search_obj = new Object();
+    search_obj.title = search.get();
 
 
 
     if(Session.get('headset')=='Rift'){
-      return VR.find({support_rift: true});
+      search_obj.support_rift = true;
     } else if (Session.get('headset')=='Vive'){
-      return VR.find({support_vive: true});
-    } else {
-      return VR.find({});
+      search_obj.support_vive = true;
+    } 
+
+    if(Session.get('support_gamepad')==true){
+      search_obj.support_gamepad = true;
     }
+
+    if(Session.get('support_motion')==true){
+      search_obj.support_motion = true;
+    }
+
+    if(Session.get('support_kbm')==true){
+      search_obj.support_kbm = true;
+    }
+
+    if(Session.get('support_singleplayer')==true){
+      search_obj.support_singleplayer = true;
+    }
+
+    if(Session.get('support_multiplayer')==true){
+      search_obj.support_multiplayer = true;
+    }
+
+    console.log(search_obj);
+
+    return VR.find(search_obj);
   }
 });
 
