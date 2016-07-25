@@ -148,9 +148,10 @@ Template.layout.events({
     console.log(Session.get('support_multiplayer'));
   },
   'submit #search_form':function(event){
-    // prevent submit and log input
+    // prevent submit
     event.preventDefault();
 
+    // log input
     console.log('search_input ', search_input.value);
 
     // trim whitespace from search input
