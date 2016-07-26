@@ -24,7 +24,7 @@ Template.layout.events({
 
     // jQuery caching optimization
     var headset_html = $(event.currentTarget).closest('a').html();
-    var navbar_headset = $('.navbar .js-headset');
+    var navbar_headset = $('.navbar').find('.js-headset');
     var headset_contains_headset = $('.navbar .js-headset:contains("'+ headset_html +'")');
 
     if(Session.get('headset')==headset_html){
@@ -49,7 +49,7 @@ Template.layout.events({
     event.preventDefault();
 
     // jQuery caching optimization
-    var navbar_gamepad = $('.navbar .js-gamepad');
+    var navbar_gamepad = $('.navbar').find('.js-gamepad');
 
     if(Session.get('support_gamepad')==true){
       // if already active, remove session and active
@@ -70,7 +70,7 @@ Template.layout.events({
     event.preventDefault();
 
     // jQuery caching optimization
-    var navbar_motion = $('.navbar .js-motion');
+    var navbar_motion = $('.navbar').find('.js-motion');
 
     if(Session.get('support_motion')==true){
       // if already active, remove session, active and focus
@@ -91,7 +91,7 @@ Template.layout.events({
     event.preventDefault();
 
     // jQuery caching optimization
-    var navbar_kbm = $('.navbar .js-kbm');
+    var navbar_kbm = $('.navbar').find('.js-kbm');
 
     if(Session.get('support_kbm')==true){
       // if already active, remove session, active and focus
@@ -114,7 +114,9 @@ Template.layout.events({
     event.preventDefault();
 
     // jQuery caching optimization
-    var navbar_singleplayer = $('.navbar .js-singleplayer');
+    var navbar_singleplayer = $('.navbar').find('.js-singleplayer');
+
+    $(event.currentTarget).focus();
 
     if(Session.get('support_singleplayer')==true){
       // if already active, remove session, active and focus
@@ -130,13 +132,13 @@ Template.layout.events({
     }
 
     // remove focus
-    navbar_singleplayer.blur();
+    $(event.currentTarget).blur();
   }, 
   'click .js-multiplayer': function (event) {
     event.preventDefault();
 
     // jQuery caching optimization
-    var navbar_multiplayer = $('.navbar .js-multiplayer');
+    var navbar_multiplayer = $('.navbar').find('.js-multiplayer');
 
     if(Session.get('support_multiplayer')==true){
       // if already active, remove session, active and focus
