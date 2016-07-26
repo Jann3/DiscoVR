@@ -14,9 +14,9 @@ Router.route('/', function () {
   this.render('site_info', {to:'footer'}); 
 });
 
+
 // define default_search regexp, use it to initialize a reactive var for searches
-var default_search = /.*.*/
-, search = new ReactiveVar(default_search);
+var search = new ReactiveVar();
 
 Template.layout.events({
   'click .js-headset': function (event) {
@@ -37,13 +37,13 @@ Template.layout.events({
       Session.set('headset', headset_html);
       navbar_headset.parent('li').removeClass('active');
       headset_contains_headset.parent('li').addClass('active');
+      navbar_headset.attr('data-original-title', '');
       headset_contains_headset.attr('data-original-title', 'Remove Filter');
     }
 
+    // remove focus
     navbar_headset.blur();
-    navbar_headset.tooltip('hide');
-    // echo headset from session
-    console.log(Session.get('headset'));
+    //navbar_headset.tooltip('hide');
   },
   'click .js-gamepad': function (event) {
     event.preventDefault();
@@ -65,9 +65,6 @@ Template.layout.events({
 
     // remove focus
     navbar_gamepad.blur();
-
-    // echo headset from session
-    console.log(Session.get('support_gamepad'));
   }, 
   'click .js-motion': function (event) {
     event.preventDefault();
@@ -89,9 +86,6 @@ Template.layout.events({
 
     // remove focus
     navbar_motion.blur();
-
-    // echo headset from session
-    console.log(Session.get('support_motion'));
   }, 
   'click .js-kbm': function (event) {
     event.preventDefault();
@@ -137,8 +131,6 @@ Template.layout.events({
 
     // remove focus
     navbar_singleplayer.blur();
-    // echo headset from session
-    console.log(Session.get('support_singleplayer'));
   }, 
   'click .js-multiplayer': function (event) {
     event.preventDefault();
@@ -161,40 +153,42 @@ Template.layout.events({
 
     // remove focus
     navbar_multiplayer.blur();
-    // echo headset from session
-    console.log(Session.get('support_multiplayer'));
   },
   'submit #search_form':function(event){
     // prevent submit
     event.preventDefault();
 
-    // log input
-    console.log('search_input ', search_input.value);
+    if(search_input.value){
 
-    // trim whitespace from search input
-    var search_trim_whitespace = search_input.value.trim();
+      // log input
+      console.log('search_input ', search_input.value);
 
-    // trim special characters
-    var trim_special_chars = search_trim_whitespace.replace(/[^a-zA-Z0-9'., ]/g, "");
+      // trim whitespace from search input
+      var search_trim_whitespace = search_input.value.trim();
 
-    // replace whitespace with regex AND operator
-    var whitespace_regex = trim_special_chars.replace(/ /g, ')(?=.*');
+      // trim special characters
+      var trim_special_chars = search_trim_whitespace.replace(/[^a-zA-Z0-9'., ]/g, "");
 
-    // trim duplicate regex insertions of (?=.*) caused by extra whitespace
-    var trim_excess_regex = whitespace_regex.replace(/\(\?=.\*\)/g,'');
+      // replace whitespace with regex AND operator
+      var whitespace_regex = trim_special_chars.replace(/ /g, ')(?=.*');
 
-    // build final regex
-    var search_regex = new RegExp("(?=.*" +trim_excess_regex+ ").*","i");
+      // trim duplicate regex insertions of (?=.*) caused by extra whitespace
+      var trim_excess_regex = whitespace_regex.replace(/\(\?=.\*\)/g,'');
 
-    // log output regex and set it as search
-    console.log('search_regex', search_regex);
-    search.set(search_regex); 
+      // build final regex
+      var search_regex = new RegExp("(?=.*" +trim_excess_regex+ ").*","i");
+
+      // log output regex and set it as search
+      console.log('search_regex', search_regex);
+      search.set(search_regex); 
+
+    } else {
+      // no value clear search
+      search.set(undefined);
+    }
 
     // hide search modal
     $('#js-search-modal').modal('hide');
-
-    // maybe add a route later
-    //Router.go('/');
   }, 
 }); // End layout events
 
@@ -208,6 +202,9 @@ Template.vr_filters.events({
     Session.set('support_kbm', undefined);
     Session.set('support_singleplayer', undefined);
     Session.set('support_multiplayer', undefined);
+
+    // clear search 
+    search.set(undefined);
 
     // reset tooltips
     $('.navbar a').attr('data-original-title', '');
@@ -224,7 +221,9 @@ Template.vr_list.helpers({
     var search_obj = new Object();
 
     // get search string from reactive var
-    search_obj.title = search.get();
+    if(search.get()){
+      search_obj.title = search.get();
+    }
 
     // add properties to search object dependant on session
     if(Session.get('headset')=='Rift'){
@@ -308,7 +307,7 @@ Template.vr_title.helpers({
 
 Template.vr_filters.helpers({
   getSession:function(){
-    if(Session.get('headset')||Session.get('support_gamepad')||Session.get('support_motion')||Session.get('support_kbm')||Session.get('support_singleplayer')||Session.get('support_multiplayer')){
+    if(Session.get('headset')||Session.get('support_gamepad')||Session.get('support_motion')||Session.get('support_kbm')||Session.get('support_singleplayer')||Session.get('support_multiplayer')||search.get()){
       return true;
     } else {
       return false;
