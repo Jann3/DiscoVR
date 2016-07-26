@@ -1,5 +1,6 @@
 <head>
   <title>DiscoVR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -27,7 +28,7 @@
       </div>
 
       <!-- Nav links for toggling -->
-      <div class="collapse navbar-collapse" id="#navbar-collapse-links">
+      <div class="collapse navbar-collapse" id="navbar-collapse-links">
         <ul class="nav navbar-nav">
           <li><p class="navbar-text">Headset:</p></li>
           <li><a href="#" class="js-headset" data-toggle="tooltip" data-placement="bottom" title="">Rift</a></li>
@@ -153,8 +154,9 @@
     // initialize data-tooltip as tooltip (to allow data-toggle to open modal)
     $('[data-tooltip="true"]').tooltip();
 
-    // focus search_input on modal shown
+    // hide tooltip and focus search_input on search modal shown
     $('#js-search-modal').on('shown.bs.modal', function () {
+      $('.js-search-button').tooltip('hide');
       $('#search_input').focus();
     });
 
