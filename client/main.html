@@ -45,12 +45,17 @@
     </div><!-- /Container -->
   </nav>
 
+  <div class="container-fluid">
 
-  <!-- Search button -->
-  <div class="pull-right">
-    <button type="button" class="btn btn-default js-search-button" data-toggle="modal" data-target="#js-search-modal" data-tooltip="true" data-placement="bottom" title="search titles">
-      <i class="glyphicon glyphicon-search"></i>
-    </button>
+    <!-- Search button -->
+    <div class="pull-right">
+      <button type="button" class="btn btn-default js-search-button" data-toggle="modal" data-target="#js-search-modal" data-tooltip="true" data-placement="bottom" title="search titles">
+        <i class="glyphicon glyphicon-search"></i>
+      </button>
+    </div>
+
+    <!-- Filters -->
+    {{> vr_filters}}
   </div>
 
   <!-- Search modal -->
@@ -139,6 +144,12 @@
         </td>
       </tr>
 
+</template>
+
+<template name="vr_filters">
+  {{#if getSession}}
+    Results shown are filtered. <a href="\" class="js-reset-filters">Clear</a>
+  {{/if}}
 </template>
 
 <template name="site_info">

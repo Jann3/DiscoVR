@@ -196,7 +196,26 @@ Template.layout.events({
     // maybe add a route later
     //Router.go('/');
   }, 
-});
+}); // End layout events
+
+Template.vr_filters.events({
+  'click .js-reset-filters': function () {
+
+    // reset session objects
+    Session.set('headset', undefined);
+    Session.set('support_gamepad', undefined);
+    Session.set('support_motion', undefined);
+    Session.set('support_kbm', undefined);
+    Session.set('support_singleplayer', undefined);
+    Session.set('support_multiplayer', undefined);
+
+    // reset tooltips
+    $('.navbar a').attr('data-original-title', '');
+
+    // remove active li's from navbar
+    $('.navbar li').removeClass('active');
+  }, 
+}); // End vr_filters events
 
 Template.vr_list.helpers({
   supported_title:function(){
@@ -240,7 +259,7 @@ Template.vr_list.helpers({
     // query database with search object
     return VR.find(search_obj);
   }
-}); // End events
+}); // End vr_list helpers
 
 Template.vr_title.helpers({
   getSteamLink:function(support_rift, support_vive, steam_id){
@@ -285,8 +304,17 @@ Template.vr_title.helpers({
       return false;
     }
   }
-}); // End helpers
+}); // End vr_title helpers
 
+Template.vr_filters.helpers({
+  getSession:function(){
+    if(Session.get('headset')||Session.get('support_gamepad')||Session.get('support_motion')||Session.get('support_kbm')||Session.get('support_singleplayer')||Session.get('support_multiplayer')){
+      return true;
+    } else {
+      return false;
+    }
+  },
+}); // End vr_filters helpers
 
 Meteor.call('getRift', function(error, result) {
   console.log(result);
