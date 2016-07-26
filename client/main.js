@@ -25,20 +25,23 @@ Template.layout.events({
     // jQuery caching optimization
     var headset_html = $(event.currentTarget).closest('a').html();
     var navbar_headset = $('.navbar .js-headset');
+    var headset_contains_headset = $('.navbar .js-headset:contains("'+ headset_html +'")');
 
     if(Session.get('headset')==headset_html){
       // if already active, remove session, active and focus
       Session.set('headset', undefined);
       navbar_headset.parent('li').removeClass('active');
-      navbar_headset.blur();
-
+      navbar_headset.attr('data-original-title', '');
     } else {
       // else add to session and add active class
       Session.set('headset', headset_html);
       navbar_headset.parent('li').removeClass('active');
-      $('.navbar .js-headset:contains("'+ headset_html +'")').parent('li').addClass('active'); 
+      headset_contains_headset.parent('li').addClass('active');
+      headset_contains_headset.attr('data-original-title', 'Remove Filter');
     }
 
+    navbar_headset.blur();
+    navbar_headset.tooltip('hide');
     // echo headset from session
     console.log(Session.get('headset'));
   },
@@ -49,16 +52,19 @@ Template.layout.events({
     var navbar_gamepad = $('.navbar .js-gamepad');
 
     if(Session.get('support_gamepad')==true){
-      // if already active, remove session, active and focus
+      // if already active, remove session and active
       Session.set('support_gamepad', undefined);
       navbar_gamepad.parent('li').removeClass('active');
-      navbar_gamepad.blur();
-
+      navbar_gamepad.attr('data-original-title', '');
     } else {
       // else add to session and add active class
       Session.set('support_gamepad', true);
       navbar_gamepad.parent('li').addClass('active'); 
+      navbar_gamepad.attr('data-original-title', 'Remove Filter');
     }
+
+    // remove focus
+    navbar_gamepad.blur();
 
     // echo headset from session
     console.log(Session.get('support_gamepad'));
@@ -73,13 +79,16 @@ Template.layout.events({
       // if already active, remove session, active and focus
       Session.set('support_motion', undefined);
       navbar_motion.parent('li').removeClass('active');
-      navbar_motion.blur();
-
+      navbar_motion.attr('data-original-title', '');
     } else {
       // else add to session and add active class
       Session.set('support_motion', true);
       navbar_motion.parent('li').addClass('active'); 
+      navbar_motion.attr('data-original-title', 'Remove Filter');
     }
+
+    // remove focus
+    navbar_motion.blur();
 
     // echo headset from session
     console.log(Session.get('support_motion'));
@@ -94,14 +103,16 @@ Template.layout.events({
       // if already active, remove session, active and focus
       Session.set('support_kbm', undefined);
       navbar_kbm.parent('li').removeClass('active');
-      navbar_kbm.blur();
-
+      navbar_kbm.attr('data-original-title', '');
     } else {
       // else add to session and add active class
       Session.set('support_kbm', true);
       navbar_kbm.parent('li').addClass('active'); 
+      navbar_kbm.attr('data-original-title', 'Remove Filter');
     }
 
+    // remove focus
+    navbar_kbm.blur();
     // echo headset from session
     console.log(Session.get('support_kbm'));
   }, 
@@ -115,14 +126,17 @@ Template.layout.events({
       // if already active, remove session, active and focus
       Session.set('support_singleplayer', undefined);
       navbar_singleplayer.parent('li').removeClass('active');
-      navbar_singleplayer.blur();
+      navbar_singleplayer.attr('data-original-title', '');
 
     } else {
       // else add to session and add active class
       Session.set('support_singleplayer', true);
       navbar_singleplayer.parent('li').addClass('active'); 
+      navbar_singleplayer.attr('data-original-title', 'Remove Filter');
     }
 
+    // remove focus
+    navbar_singleplayer.blur();
     // echo headset from session
     console.log(Session.get('support_singleplayer'));
   }, 
@@ -136,14 +150,17 @@ Template.layout.events({
       // if already active, remove session, active and focus
       Session.set('support_multiplayer', undefined);
       navbar_multiplayer.parent('li').removeClass('active');
-      navbar_multiplayer.blur();
+      navbar_multiplayer.attr('data-original-title', '');
 
     } else {
       // else add to session and add active class
       Session.set('support_multiplayer', true);
       navbar_multiplayer.parent('li').addClass('active'); 
+      navbar_multiplayer.attr('data-original-title', 'Remove Filter');
     }
 
+    // remove focus
+    navbar_multiplayer.blur();
     // echo headset from session
     console.log(Session.get('support_multiplayer'));
   },
@@ -173,6 +190,10 @@ Template.layout.events({
     console.log('search_regex', search_regex);
     search.set(search_regex); 
 
+    // hide search modal
+    $('#js-search-modal').modal('hide');
+
+    // maybe add a route later
     //Router.go('/');
   }, 
 });
@@ -219,7 +240,7 @@ Template.vr_list.helpers({
     // query database with search object
     return VR.find(search_obj);
   }
-});
+}); // End events
 
 Template.vr_title.helpers({
   getSteamLink:function(support_rift, support_vive, steam_id){
@@ -264,7 +285,7 @@ Template.vr_title.helpers({
       return false;
     }
   }
-});
+}); // End helpers
 
 
 Meteor.call('getRift', function(error, result) {
