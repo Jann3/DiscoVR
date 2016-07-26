@@ -47,16 +47,14 @@
 
   <!-- Search button -->
   <div class="pull-right">
-    <a href="#" data-toggle="modal" data-target="#js-search-modal">
-      <button type="button" class="btn btn-default js-search-button" data-toggle="tooltip" data-placement="bottom" title="search titles">
-        <i class="glyphicon glyphicon-search"></i>
-      </button>
-    </a>
+    <button type="button" class="btn btn-default js-search-button" data-toggle="modal" data-target="#js-search-modal" data-tooltip="true" data-placement="bottom" title="search titles">
+      <i class="glyphicon glyphicon-search"></i>
+    </button>
   </div>
 
   <!-- Search modal -->
   <div class="modal fade bs-example-modal-sm" id="js-search-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <form role="search" id="search_form">
           <input type="text" class="form-control" placeholder="Search" id="search_input" autocomplete="off">
@@ -152,7 +150,10 @@
     // initialize tooltips
     $('[data-toggle="tooltip"]').tooltip();
 
-    // attach search input focus on modal shown
+    // initialize data-tooltip as tooltip (to allow data-toggle to open modal)
+    $('[data-tooltip="true"]').tooltip();
+
+    // focus search_input on modal shown
     $('#js-search-modal').on('shown.bs.modal', function () {
       $('#search_input').focus();
     });
