@@ -27,23 +27,24 @@ Template.layout.events({
     var navbar_headset = $('.navbar').find('.js-headset');
     var headset_contains_headset = $('.navbar .js-headset:contains("'+ headset_html +'")');
 
+    // remove active class from all headset
+    navbar_headset.parent('li').removeClass('active');
+
     if(Session.get('headset')==headset_html){
-      // if already active, remove session, active and focus
+      // if already selected, remove session, reset tooltip
       Session.set('headset', undefined);
-      navbar_headset.parent('li').removeClass('active');
       navbar_headset.attr('data-original-title', '');
     } else {
       // else add to session and add active class
       Session.set('headset', headset_html);
-      navbar_headset.parent('li').removeClass('active');
       headset_contains_headset.parent('li').addClass('active');
+      // reset tooltips then add tooltip to current
       navbar_headset.attr('data-original-title', '');
       headset_contains_headset.attr('data-original-title', 'Remove Filter');
     }
 
     // remove focus
     navbar_headset.blur();
-    //navbar_headset.tooltip('hide');
   },
   'click .js-gamepad': function (event) {
     event.preventDefault();
@@ -52,7 +53,7 @@ Template.layout.events({
     var navbar_gamepad = $('.navbar').find('.js-gamepad');
 
     if(Session.get('support_gamepad')==true){
-      // if already active, remove session and active
+      // if already selected, remove session, active and tooltip
       Session.set('support_gamepad', undefined);
       navbar_gamepad.parent('li').removeClass('active');
       navbar_gamepad.attr('data-original-title', '');
@@ -73,7 +74,7 @@ Template.layout.events({
     var navbar_motion = $('.navbar').find('.js-motion');
 
     if(Session.get('support_motion')==true){
-      // if already active, remove session, active and focus
+      // if already selected, remove session, active and tooltip
       Session.set('support_motion', undefined);
       navbar_motion.parent('li').removeClass('active');
       navbar_motion.attr('data-original-title', '');
@@ -94,7 +95,7 @@ Template.layout.events({
     var navbar_kbm = $('.navbar').find('.js-kbm');
 
     if(Session.get('support_kbm')==true){
-      // if already active, remove session, active and focus
+      // if already selected, remove session, active and tooltip
       Session.set('support_kbm', undefined);
       navbar_kbm.parent('li').removeClass('active');
       navbar_kbm.attr('data-original-title', '');
@@ -116,10 +117,8 @@ Template.layout.events({
     // jQuery caching optimization
     var navbar_singleplayer = $('.navbar').find('.js-singleplayer');
 
-    $(event.currentTarget).focus();
-
     if(Session.get('support_singleplayer')==true){
-      // if already active, remove session, active and focus
+      // if already selected, remove session, active and tooltip
       Session.set('support_singleplayer', undefined);
       navbar_singleplayer.parent('li').removeClass('active');
       navbar_singleplayer.attr('data-original-title', '');
@@ -132,7 +131,7 @@ Template.layout.events({
     }
 
     // remove focus
-    $(event.currentTarget).blur();
+    navbar_singleplayer.blur();
   }, 
   'click .js-multiplayer': function (event) {
     event.preventDefault();
@@ -141,7 +140,7 @@ Template.layout.events({
     var navbar_multiplayer = $('.navbar').find('.js-multiplayer');
 
     if(Session.get('support_multiplayer')==true){
-      // if already active, remove session, active and focus
+      // if already selected, remove session, active and tooltip
       Session.set('support_multiplayer', undefined);
       navbar_multiplayer.parent('li').removeClass('active');
       navbar_multiplayer.attr('data-original-title', '');
@@ -207,12 +206,13 @@ Template.vr_filters.events({
 
     // clear search 
     search.set(undefined);
+    search_input.value = '';
 
     // reset tooltips
-    $('.navbar a').attr('data-original-title', '');
+    $('.navbar').find('a').attr('data-original-title', '');
 
     // remove active li's from navbar
-    $('.navbar li').removeClass('active');
+    $('.navbar').find('li').removeClass('active');
   }, 
 }); // End vr_filters events
 
