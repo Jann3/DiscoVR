@@ -108,8 +108,6 @@ Template.layout.events({
 
     // remove focus
     navbar_kbm.blur();
-    // echo headset from session
-    console.log(Session.get('support_kbm'));
   }, 
   'click .js-singleplayer': function (event) {
     event.preventDefault();
@@ -168,7 +166,7 @@ Template.layout.events({
       var search_trim_whitespace = search_input.value.trim();
 
       // trim special characters
-      var trim_special_chars = search_trim_whitespace.replace(/[^a-zA-Z0-9'., ]/g, "");
+      var trim_special_chars = search_trim_whitespace.replace(/[^a-zA-Z0-9'., ]/g, '');
 
       // replace whitespace with regex AND operator
       var whitespace_regex = trim_special_chars.replace(/ /g, ')(?=.*');
@@ -177,7 +175,7 @@ Template.layout.events({
       var trim_excess_regex = whitespace_regex.replace(/\(\?=.\*\)/g,'');
 
       // build final regex
-      var search_regex = new RegExp("(?=.*" +trim_excess_regex+ ").*","i");
+      var search_regex = new RegExp('(?=.*' +trim_excess_regex+ ').*','i');
 
       // log output regex and set it as search
       console.log('search_regex', search_regex);

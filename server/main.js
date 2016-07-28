@@ -5,6 +5,20 @@ VR = new Mongo.Collection('VR');
 Meteor.startup(function () {
 // code to run on server at startup
 
+
+    // if no users
+    if (Meteor.users.find().count() === 0){
+
+      // create a test account
+      // NEVER deploy without changing this !!
+      Accounts.createUser({
+        username: "Test",
+        email: "test@test.com",
+        password: "test123",
+      });
+    }
+
+
     if (!VR.findOne()){
 
       // if nothing in the database create sample dataset

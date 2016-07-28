@@ -24,3 +24,6 @@ twbs:bootstrap
 fortawesome:fontawesome
 iron:router
 reactive-var
+accounts-base
+accounts-password
+accounts-ui
