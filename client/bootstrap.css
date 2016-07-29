@@ -6939,3 +6939,37 @@ a.list-group-item-danger.active:focus {
 .popover {
   color: #333333;
 }
+
+/* Custom, iPhone Retina */ 
+@media only screen and (min-width : 320px) {
+
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (min-width : 480px) {
+
+}
+
+/* Small Devices, Tablets to Desktops and Large Devices */
+@media only screen and (min-width : 768px) and (max-width : 1200px) {
+.navbar .multiline li {
+    line-height: 11px;
+  }
+.navbar .multiline a {
+    line-height: 11px;
+    font-size: 11px;
+  }
+.navbar .multiline span {
+    display: block;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
+}

@@ -36,7 +36,7 @@
           <li><p class="navbar-text">Controller:</p></li>
           <li><a href="#" class="js-gamepad" data-toggle="tooltip" data-placement="auto bottom" title="">Gamepad</a></li>
           <li><a href="#" class="js-motion" data-toggle="tooltip" data-placement="auto bottom" title="">Motion</a></li>
-          <li><a href="#" class="js-kbm" data-toggle="tooltip" data-placement="auto bottom" title="">Mouse / KB</a></li>
+          <li class="multiline"><a href="#" class="js-kbm" data-toggle="tooltip" data-placement="auto bottom" title="">Keyboard<span> &amp; Mouse</span></a></li>
           <li><p class="navbar-text">Genre:</p></li>
           <li><a href="#" class="js-singleplayer" data-toggle="tooltip" data-placement="auto bottom" title="">Singleplayer</a></li>
           <li><a href="#" class="js-multiplayer" data-toggle="tooltip" data-placement="auto bottom" title="">Multiplayer</a></li>
@@ -74,17 +74,21 @@
 
 <template name="vr_list">
 <div class="container-fluid">
-  <div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Platforms</th>
-        <th>Features</th>
-        <th>Available on </th>
-      </tr>
-    </thead>
-    <tbody>
+
+<div class="row">
+  <div class="col-xs-5">
+    <h3>Title</h3>
+  </div>
+
+  <div class="col-xs-4 text-center">
+    <h3>Features</h3>
+  </div>
+
+  <div class="col-xs-3 text-center">
+    <h3>Store</h3>
+  </div>
+</div>
+
     {{#unless currentUser}}
       {{#each supported_title}}
         {{> vr_title}}
@@ -94,17 +98,33 @@
         {{> vr_admin_title}}
       {{/each}}
     {{/unless}}
-    </tbody>
-  </table>
-  </div>
+
+
 </div>
 
 </template>
 
 <template name="vr_title">
-      <tr>
-        <td>{{title}}</td>
-        <td>
+
+<div class="row">
+  <div class="col-md-12 col-xs-12">
+    <hr>
+  </div>
+</div>
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-md-5 col-sm-6 col-xs-12">
+    <h4>{{title}}</h4>
+  </div>
+
+  <div class="col-md-4 col-sm-3 col-xs-6 text-center">
+
           {{#if support_rift}}
             {{#if support_vive}}
             <a href="#" class="js-headset">Rift</a>, <a href="#" class="js-headset">Vive</a>
@@ -116,39 +136,40 @@
             <a href="#" class="js-headset">Vive</a>
             {{/if}}
           {{/if}}
-        </td>
-        <td>
+
+
           {{#if support_singleplayer}}
           <a href="#" class="js-singleplayer">
-            <i class="fa fa-user" aria-hidden="true" title="singleplayer"></i>
+            <i class="fa fa-user fa-lg" aria-hidden="true" title="singleplayer"></i>
           </a>
           {{/if}}
           {{#if support_multiplayer}}
           <a href="#" class="js-multiplayer">
-            <i class="fa fa-users" aria-hidden="true" title="multiplayer"></i>
+            <i class="fa fa-users fa-lg" aria-hidden="true" title="multiplayer"></i>
           </a>
           {{/if}}
           {{#if support_gamepad}}
           <a href="#" class="js-gamepad">
-            <i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i>
+            <i class="fa fa-gamepad fa-lg" aria-hidden="true" title="supports gamepad"></i>
           </a>
           {{/if}}
           {{#if support_motion}}
           <a href="#" class="js-motion">
-            <i class="fa fa-hand-paper-o" aria-hidden="true" title="supports motion controllers"></i>
+            <i class="fa fa-hand-paper-o fa-lg" aria-hidden="true" title="supports motion controllers"></i>
           </a>
           {{/if}}
           {{#if support_kbm}}
           <a href="#" class="js-kbm">
-            <i class="fa fa-keyboard-o" aria-hidden="true" title="supports keyboard and mouse"></i>
+            <i class="fa fa-keyboard-o fa-lg" aria-hidden="true" title="supports keyboard and mouse"></i>
           </a>
           {{/if}}
-        </td>
-        <td>
+
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-6 text-center">
           {{{getOculusLink support_rift support_vive rift_id}}}
           {{{getSteamLink support_rift support_vive steam_id}}}
-        </td>
-      </tr>
+  </div>
+</div>
 
 </template>
 
