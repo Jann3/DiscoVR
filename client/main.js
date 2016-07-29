@@ -10,7 +10,9 @@ Router.configure({
 // specify the top level route, the page users see when they arrive at the site
 Router.route('/', function () {
   this.render('navbar', {to:'header'});
+
   this.render('vr_list', {to:'main'});
+  
   this.render('site_info', {to:'footer'}); 
 });
 
@@ -191,6 +193,7 @@ Template.layout.events({
   }, 
 }); // End layout events
 
+
 Template.vr_filters.events({
   'click .js-reset-filters': function () {
 
@@ -213,6 +216,7 @@ Template.vr_filters.events({
     $('.navbar').find('li').removeClass('active');
   }, 
 }); // End vr_filters events
+
 
 Template.vr_list.helpers({
   supported_title:function(){
@@ -260,6 +264,7 @@ Template.vr_list.helpers({
   }
 }); // End vr_list helpers
 
+
 Template.vr_title.helpers({
   getSteamLink:function(support_rift, support_vive, steam_id){
     if(!steam_id){
@@ -304,6 +309,7 @@ Template.vr_title.helpers({
     }
   }
 }); // End vr_title helpers
+
 
 Template.vr_filters.helpers({
   getSession:function(){

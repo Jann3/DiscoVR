@@ -85,9 +85,15 @@
       </tr>
     </thead>
     <tbody>
-    {{#each supported_title}}
-    {{> vr_title}}
-    {{/each}}
+    {{#unless currentUser}}
+      {{#each supported_title}}
+        {{> vr_title}}
+      {{/each}}
+    {{else}}
+      {{#each supported_title}}
+        {{> vr_admin_title}}
+      {{/each}}
+    {{/unless}}
     </tbody>
   </table>
   </div>
@@ -144,6 +150,68 @@
         </td>
       </tr>
 
+</template>
+
+<template name="vr_admin_title">
+<div>
+          {{title}}
+
+          <div class="btn-toolbar sm" aria-label="Supported">
+
+            <div class="btn-group" data-toggle="buttons" aria-label="Headset">
+
+              <label class="btn btn-primary {{#if support_rift}}active{{/if}}">
+                <input type="checkbox" autocomplete="off">Rift
+              </label>
+
+              <label class="btn btn-primary {{#if support_vive}}active{{/if}}">
+                <input type="checkbox" autocomplete="off">Vive
+              </label>
+            </div>
+
+
+
+            <div class="btn-group" data-toggle="buttons" aria-label="Gameplay">
+
+              <label class="btn btn-primary {{#if support_singleplayer}}active{{/if}}">
+                <i class="fa fa-user" aria-hidden="true" title="singleplayer"></i>
+              </label>
+
+
+              <label class="btn btn-primary {{#if support_multiplayer}}active{{/if}}">
+                <i class="fa fa-users" aria-hidden="true" title="multiplayer"></i>
+              </label>
+
+              <label class="btn btn-primary {{#if support_gamepad}}active{{/if}}">
+                <i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i>
+              </label>
+
+
+              <label class="btn btn-primary {{#if support_motion}}active{{/if}}">
+                <i class="fa fa-hand-paper-o" aria-hidden="true" title="supports motion controllers"></i>
+              </label>
+
+
+              <label class="btn btn-primary {{#if support_kbm}}active{{/if}}">
+                <i class="fa fa-keyboard-o" aria-hidden="true" title="supports keyboard and mouse"></i>
+              </label>
+            </div>
+          </div>
+
+          <label for="basic-url">Oculus</label>
+            <div class="input-group">
+            <span class="input-group-addon" id="basic-addon3">https://www.oculus.com/experiences/rift/</span>
+            <input type="text" class="form-control" id="rift_id" aria-describedby="basic-addon3" value="{{rift_id}}">
+          </div>
+
+          <label for="basic-url">Steam</label>
+            <div class="input-group">
+            <span class="input-group-addon" id="basic-addon3">http://store.steampowered.com/app/</span>
+            <input type="text" class="form-control" id="steam_id" aria-describedby="basic-addon3" value="{{steam_id}}">
+          </div>
+
+<hr>
+</div>
 </template>
 
 <template name="vr_filters">
