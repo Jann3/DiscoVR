@@ -191,6 +191,12 @@ Template.layout.events({
     // hide search modal
     $('#js-search-modal').modal('hide');
   }, 
+  'click .js-navbar-toggle':function(event){
+    $('.js-navbar-toggle').tooltip('hide');
+  }, 
+  'click .js-search-button':function(event){
+    $('.js-search-button').tooltip('hide');
+  }, 
 }); // End layout events
 
 
@@ -261,7 +267,12 @@ Template.vr_list.helpers({
 
     // query database with search object
     return VR.find(search_obj);
-  }
+  },
+  getUsername:function(){
+    if(Meteor.user()){
+      return Meteor.user().username;
+    }
+  },
 }); // End vr_list helpers
 
 

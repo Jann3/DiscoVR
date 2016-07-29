@@ -6955,13 +6955,13 @@ a.list-group-item-danger.active:focus {
 }
 
 /* Small Devices, Tablets to Desktops and Large Devices */
-@media only screen and (min-width : 768px) and (max-width : 1200px) {
+@media only screen and (min-width : 768px) and (max-width : 1199px) {
 .navbar .multiline li {
-    line-height: 11px;
+    line-height: 10.5px;
   }
 .navbar .multiline a {
-    line-height: 11px;
-    font-size: 11px;
+    line-height: 10.5px;
+    font-size: 12px;
   }
 .navbar .multiline span {
     display: block;
