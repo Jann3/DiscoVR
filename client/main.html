@@ -76,15 +76,15 @@
 <div class="container-fluid">
 
 <div class="row">
-  <div class="col-xs-5">
+  <div class="col-md-5 col-sm-6 col-xs-5">
     <h3>Title</h3>
   </div>
 
-  <div class="col-xs-4 text-center">
+  <div class="col-md-4 col-sm-3 col-xs-4 text-center">
     <h3>Features</h3>
   </div>
 
-  <div class="col-xs-3 text-center">
+  <div class="col-md-3 col-sm-3 col-xs-3 text-center">
     <h3>Store</h3>
   </div>
 </div>
@@ -123,7 +123,7 @@
     <h4>{{title}}</h4>
   </div>
 
-  <div class="col-md-4 col-sm-3 col-xs-6 text-center">
+  <div class="col-md-4 col-sm-3 col-xs-6 text-center dynamic-center">
 
           {{#if support_rift}}
             {{#if support_vive}}
@@ -261,6 +261,16 @@
     $('#js-search-modal').on('shown.bs.modal', function () {
       $('.js-search-button').tooltip('hide');
       $('#search_input').focus();
+    });
+
+    // window resize function for dynamic styling
+    $(window).resize(function () {
+    var viewportWidth = $(window).width();
+    if (viewportWidth < 768) {
+        $('.dynamic-center').removeClass('text-center');
+      } else {
+        $('.dynamic-center').addClass('text-center');
+      }
     });
 
   });
