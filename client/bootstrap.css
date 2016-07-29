@@ -4515,8 +4515,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-nav > li > a {
   color: #ffffff;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: 11px;
+  padding-right: 11px;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
@@ -6946,8 +6946,12 @@ a.list-group-item-danger.active:focus {
 }
 
 /* Extra Small Devices, Phones */ 
-@media only screen and (min-width : 480px) {
-
+@media only screen and (max-width : 767px) {
+.navbar-text {
+    padding-left: 12px;
+    margin-top: 15px;
+    margin-bottom: 2px;
+  }
 }
 
 /* Small Devices, Tablets to Desktops and Large Devices */
@@ -6966,10 +6970,22 @@ a.list-group-item-danger.active:focus {
 
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 992px) {
-
+.navbar-text {
+  margin-left: 12px;
+  }
+.navbar-default .navbar-nav > li > a {
+  padding-left: 13px;
+  padding-right: 13px;
+  }
 }
 
 /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1200px) {
-
+.navbar-text {
+  margin-left: 15px;
+  }
+.navbar-default .navbar-nav > li > a {
+  padding-left: 15px;
+  padding-right: 15px;
+  }
 }
