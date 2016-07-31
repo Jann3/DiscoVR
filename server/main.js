@@ -41,6 +41,20 @@ Meteor.startup(function () {
 
 }); // End startup
 
+// Deny client updates
+
+VR.deny({
+  insert() {
+    return true;
+  }, 
+  update() {
+    return true;
+  }, 
+  remove() {
+    return true;
+  },
+});
+
 
 // Don't let users change their profile
 
@@ -103,8 +117,9 @@ HTTP.call('GET',
     }
   }); // End HTTP GET
 
-  // Publish entire VR
+// Publish entire VR
 
-  Meteor.publish('VR', function(){
-    return VR.find({});
-  });
+Meteor.publish('VR', function(){
+  return VR.find({});
+});
+
