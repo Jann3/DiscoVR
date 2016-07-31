@@ -27,3 +27,4 @@ reactive-var
 accounts-base
 accounts-password
 accounts-ui
+ddp-rate-limiter
