@@ -133,19 +133,9 @@
     <h4>{{title}}</h4>
   </div>
 
-  <div class="col-md-4 col-sm-3 col-xs-6 text-center dynamic-center">
+  <div class="col-md-4 col-sm-3 col-xs-6 text-center dynamic-center feature-icons">
 
-          {{#if support_rift}}
-            {{#if support_vive}}
-            <a href="#" class="js-headset">Rift</a>, <a href="#" class="js-headset">Vive</a>
-            {{else}}
-            <a href="#" class="js-headset">Rift</a>
-            {{/if}}
-          {{else}}
-            {{#if support_vive}}
-            <a href="#" class="js-headset">Vive</a>
-            {{/if}}
-          {{/if}}
+
 
 
           {{#if support_singleplayer}}
@@ -175,9 +165,11 @@
           {{/if}}
 
         </div>
-        <div class="col-md-3 col-sm-3 col-xs-6 text-center">
-          {{{getOculusLink support_rift support_vive rift_id}}}
-          {{{getSteamLink support_rift support_vive steam_id}}}
+        <div class="col-md-3 col-sm-3 col-xs-6 text-center remove-last-comma">
+
+              {{{getOculusLink support_rift support_vive rift_id}}}
+              {{{getSteamLink support_rift support_vive steam_id}}}
+
   </div>
 </div>
 

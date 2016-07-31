@@ -6989,3 +6989,22 @@ a.list-group-item-danger.active:focus {
   padding-right: 15px;
   }
 }
+
+/* Comma seperator for links */
+.remove-last-comma a:after {
+  content: ', ';
+}
+
+.remove-last-comma a:last-child:after {
+  content: '';
+}
+
+.feature-icons a {
+  text-decoration: none;
+  color: #222222;
+}
+
+.feature-icons a:hover {
+  text-decoration: none;
+  color: #555555;
+}
