@@ -5980,7 +5980,7 @@ button.close {
 @media (min-width: 768px) {
   .modal-dialog {
     width: 600px;
-    margin: 70px auto;
+    margin: 77px auto;
   }
   .modal-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -6940,6 +6940,34 @@ a.list-group-item-danger.active:focus {
   color: #333333;
 }
 
+.site-footer {
+  padding: 30px;
+  padding-bottom: 120px;
+  margin-top: 100px;
+  color: #999999;
+  text-align: left;
+  background-color: #222222;
+}
+
+.site-footer ul li {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.site-footer a {
+  text-decoration: none;
+  color: #bbbbbb;
+  font-size: 1.1em;
+}
+
+.site-footer a:hover {
+  color: #ffffff;
+}
+
+.site-footer hr {
+  border-color: #333333;
+}
+
 /* Custom, iPhone Retina */ 
 @media only screen and (min-width : 320px) {
 
@@ -6951,6 +6979,9 @@ a.list-group-item-danger.active:focus {
     padding-left: 12px;
     margin-top: 15px;
     margin-bottom: 2px;
+  }
+.site-footer {
+  text-align: center;
   }
 }
 

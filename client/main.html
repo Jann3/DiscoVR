@@ -14,6 +14,7 @@
 
 <template name="navbar">
 <div class="container-fluid">
+<h1>DiscoVR</h1>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header navbar-right">
@@ -106,7 +107,7 @@
     {{else}}
     <div class="row">
       <div class="col-xs-12">
-        <h3>Titles Administration - logged in as {{getUsername}}</h3>
+        <h3>Titles Administration - {{getUsername}}</h3>
       </div>
     </div>
       {{#each supported_title}}
@@ -250,19 +251,64 @@
 </div>
 </template>
 
+
+
+
+
+
+
+
+
+
 <template name="site_info">
-<div class="container-fluid">
-  Site by Janne
-  {{> loginButtons}}
-  <br><br><br><br><br><br><br><br><br><br><br><br>
+<footer class="site-footer">
+  <div class="container-fluid">
 
-  <!-- Div's for breakpoint detection -->
-  <div class="device-xs visible-xs"></div>
-  <div class="device-sm visible-sm"></div>
-  <div class="device-md visible-md"></div>
-  <div class="device-lg visible-lg"></div>
+    <ul class="list-inline">
+      <li><a href="https://github.com/Jann3/DiscoVR" target="_blank">GitHub</a></li>
+      <li><a href="https://twitter.com/Jann3" target="_blank">Twitter</a></li>
+      <li>{{> loginButtons}}</li>
+      <li><a href="#" data-toggle="modal" data-target="#js-about-modal" >About</a></li>
+    </ul>
+    <hr>
+    <p>Designed by Janne as part of an awesome <a href="https://www.coursera.org/specializations/website-development" target="_blank">Specialization in Web Development on Coursera</a>. &nbsp; Oculus, Rift, Steam and Vive are trademarks of their respective owners.</p>
 
-</div>
+  </div>
+</footer>
+
+  <!-- About modal -->
+  <div class="modal fade" id="js-about-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h3 class="modal-title">Welcome to DiscoVR</h3>
+      </div>
+      <div class="modal-body">
+        <p>This site was designed for VR headset owners, to make it easy to find the games and experiences that their headset supports.</p>
+        <p>This about page text will be replaced by graphical instructions of what the user can click.</p>
+        <p>But for now...</p>
+        <p>1) Choose your VR headset and any controllers you own at the top - to filter Titles.</p>
+        <p>2) Select or deselect Features by clicking at the top or the icons.</p>
+        <p>3) Alternatively Search for titles by clicking the search icon.</p>
+        <p>Also..</p>
+        <p>4) If you wish to test the Admin page click 'Sign in' at the bottom (email: test@test.com password: test123), but bear in mind this feature is not even remotely finished.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
+   <!-- Div's for breakpoint detection -->
+    <div class="device-xs visible-xs"></div>
+    <div class="device-sm visible-sm"></div>
+    <div class="device-md visible-md"></div>
+    <div class="device-lg visible-lg"></div>
+
 <script type="text/javascript">
   $(function () {
 
