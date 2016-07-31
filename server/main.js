@@ -127,15 +127,24 @@ Meteor.methods({
   'VR.updateFeatureSupport': function(title_id, data_support, hasSupport){
     if(Meteor.user()){
 
+      // check params
+      check(title_id, String);
+      check(data_support, String);
+      check(hasSupport, Boolean);
+
       // log method params
       console.log(title_id, data_support, hasSupport);
 
-      // build object with params
+      // build object using data_support as key
       var update_obj = {};
       update_obj[data_support] = hasSupport;
 
-      // run mongo update with object
-      VR.update({_id: title_id}, { $set: update_obj});
+      // if title exists
+      if(VR.findOne({_id: title_id})){
+
+        // update with object
+        VR.update({_id: title_id}, { $set: update_obj});      
+      }
     }
   },
 });
