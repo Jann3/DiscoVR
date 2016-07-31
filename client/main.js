@@ -224,6 +224,35 @@ Template.vr_filters.events({
 }); // End vr_filters events
 
 
+Template.vr_admin_title.events({
+  'click .js-toggle': function (event) {
+
+    // jQuery caching optimization
+    var current_event = $(event.currentTarget);
+
+    // get title_id
+    var title_id = current_event.parent().closest('span').attr('id');
+
+    // get supported_feature
+    var data_support = current_event.data('support');
+
+    // state of feature support
+    var hasSupport = current_event.hasClass('active');
+
+    console.log(title_id, data_support, hasSupport);
+
+    // if id and feature exist
+    if(title_id && data_support){
+      // call VR.updateFeatureSupport with params and state
+      Meteor.call('VR.updateFeatureSupport', title_id, data_support, hasSupport);
+    }
+  }, 
+}); // End vr_admin_title events
+
+
+
+
+
 Template.vr_list.helpers({
   supported_title:function(){
 
@@ -318,7 +347,7 @@ Template.vr_title.helpers({
     } else {
       return false;
     }
-  }
+  }, 
 }); // End vr_title helpers
 
 

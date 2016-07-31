@@ -193,17 +193,18 @@
 
 
 <div>
+  <span id="{{_id}}">
           <h4>{{title}}</h4>
 
           <div class="btn-toolbar sm" aria-label="Supported">
 
             <div class="btn-group" data-toggle="buttons" aria-label="Headset">
 
-              <label class="btn btn-success {{#if support_rift}}active{{/if}}">
+              <label class="btn btn-primary js-toggle {{#unless support_rift}}active{{/unless}}" data-support="support_rift">
                 <input type="checkbox" autocomplete="off">Rift
               </label>
 
-              <label class="btn btn-success {{#if support_vive}}active{{/if}}">
+              <label class="btn btn-primary js-toggle {{#unless support_vive}}active{{/unless}}" data-support="support_vive">
                 <input type="checkbox" autocomplete="off">Vive
               </label>
             </div>
@@ -212,30 +213,30 @@
 
             <div class="btn-group" data-toggle="buttons" aria-label="Gameplay">
 
-              <label class="btn btn-success {{#if support_singleplayer}}active{{/if}}">
+              <label class="btn btn-primary js-toggle {{#unless support_singleplayer}}active{{/unless}}" data-support="support_singleplayer">
                 <input type="checkbox" autocomplete="off">
                 <i class="fa fa-user" aria-hidden="true" title="singleplayer"></i>
               </label>
 
 
-              <label class="btn btn-success {{#if support_multiplayer}}active{{/if}}">
+              <label class="btn btn-primary js-toggle {{#unless support_multiplayer}}active{{/unless}}" data-support="support_multiplayer">
                 <input type="checkbox" autocomplete="off">
                 <i class="fa fa-users" aria-hidden="true" title="multiplayer"></i>
               </label>
 
-              <label class="btn btn-success {{#if support_gamepad}}active{{/if}}">
+              <label class="btn btn-primary js-toggle {{#unless support_gamepad}}active{{/unless}}" data-support="support_gamepad">
                 <input type="checkbox" autocomplete="off">
                 <i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i>
               </label>
 
 
-              <label class="btn btn-success {{#if support_motion}}active{{/if}}">
-                <input type="checkbox" autocomplete="off">
+              <label class="btn btn-primary js-toggle {{#unless support_motion}}active{{/unless}}" data-support="support_motion">
+                <input type="checkbox" autocomplete="off" data-feature="support_motion">
                 <i class="fa fa-hand-paper-o" aria-hidden="true" title="supports motion controllers"></i>
               </label>
 
 
-              <label class="btn btn-success {{#if support_kbm}}active{{/if}}">
+              <label class="btn btn-primary js-toggle {{#unless support_kbm}}active{{/unless}}" data-support="support_kbm">
                 <input type="checkbox" autocomplete="off">
                 <i class="fa fa-keyboard-o" aria-hidden="true" title="supports keyboard and mouse"></i>
               </label>
@@ -253,7 +254,7 @@
             <span class="input-group-addon" id="basic-addon3">http://store.steampowered.com/app/</span>
             <input type="text" class="form-control" id="steam_id" aria-describedby="basic-addon3" value="{{steam_id}}">
           </div>
-
+  </span>
 </div>
 </template>
 

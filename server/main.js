@@ -123,3 +123,19 @@ Meteor.publish('VR', function(){
   return VR.find({});
 });
 
+Meteor.methods({
+  'VR.updateFeatureSupport': function(title_id, data_support, hasSupport){
+    if(Meteor.user()){
+
+      // log method params
+      console.log(title_id, data_support, hasSupport);
+
+      // build object with params
+      var update_obj = {};
+      update_obj[data_support] = hasSupport;
+
+      // run mongo update with object
+      VR.update({_id: title_id}, { $set: update_obj});
+    }
+  },
+});
