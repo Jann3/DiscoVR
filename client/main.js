@@ -247,10 +247,37 @@ Template.vr_admin_title.events({
       Meteor.call('VR.updateFeatureSupport', title_id, data_support, hasSupport);
     }
   }, 
+  'click .js-open-link': function (event) {
+
+    // get data-target
+    var current_target = $(event.currentTarget).data('target');
+
+    // get value of input
+    var href_val = $('#' + current_target).val();
+
+    // if href value
+    if(href_val){
+
+      console.log('opening..', href_val);
+
+      var open_win = window.open(href_val, '_blank');
+      if (open_win) {
+        // if it opened
+        open_win.focus();
+      } else {
+        // problem opening
+        alert('Please allow popups for this website');
+      }
+    } else {
+      // no href
+      console.log('no href');
+      $('#' + current_target).focus();
+    }
+  },
 }); // End vr_admin_title events
 
 
-
+ 
 
 
 Template.vr_list.helpers({

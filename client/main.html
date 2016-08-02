@@ -13,8 +13,6 @@
 </template>
 
 <template name="navbar">
-<div class="container-fluid">
-<h1>DiscoVR</h1>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header navbar-right">
@@ -66,7 +64,7 @@
     </div>
   </div>
 
-</div>
+
 </template>
 
 
@@ -269,13 +267,13 @@
               <span class="input-group-addon hidden-xs" id="basic-addon_{{_id}}">Oculus URL</span>
               <input type="text" class="form-control" id="rift_id_{{_id}}" aria-describedby="basic-addon3" value="{{#if rift_id}}https://www.oculus.com/experiences/rift/{{rift_id}}{{/if}}" placeholder="Enter URL from Oculus Home" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
               <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button">
+                  <button class="btn btn-primary js-open-link" type="button" data-target="rift_id_{{_id}}">
                     <span class="hidden-xs">Open</span>
                     <span class="glyphicon glyphicon-share-alt" aria-hidden="false"></span>
                   </button>
                 </span>
                 <span class="input-group-btn">
-                  <button class="btn btn-success" type="button">Set</button>
+                  <button class="btn btn-default" type="button">Save</button>
                 </span>
             </div>
 
@@ -287,17 +285,17 @@
               <span class="input-group-addon hidden-xs" id="basic-addon_{{_id}}">Steam URL</span>
               <input type="text" class="form-control" id="steam_id_{{_id}}" aria-describedby="basic-addon3" value="{{#if steam_id}}http://store.steampowered.com/app/{{steam_id}}{{/if}}" placeholder="Enter URL from Steam" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
               <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button">
+                  <button class="btn btn-primary js-open-link" type="button" data-target="steam_id_{{_id}}">
                     <span class="hidden-xs">Open</span>
                     <span class="glyphicon glyphicon-share-alt" aria-hidden="false"></span>
                   </button>
                 </span>
                 <span class="input-group-btn">
-                  <button class="btn btn-success" type="button">Set</button>
+                  <button class="btn btn-default" type="button">Save</button>
                 </span>
             </div>
 
-
+<br><br>
 
 
   </span>
