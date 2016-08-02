@@ -274,6 +274,36 @@ Template.vr_admin_title.events({
       $('#' + current_target).focus();
     }
   },
+  'click .js-save-link': function (event) {
+
+    // jQuery caching optimization
+    var current_event = $(event.currentTarget);
+
+    // get title_id
+    var title_id = current_event.parents().closest('span').attr('id');
+
+    console.log('title_id', title_id);
+
+    // get data-target
+    var current_target = current_event.data('target');
+
+
+    // get value of input
+    var href_val = $('#' + current_target).val();
+
+    // if href value
+    if(href_val && href_val){
+
+      console.log('saving..', href_val);
+
+      Meteor.call('VR.updateLink', title_id, href_val);
+
+    } else {
+      // no href
+      console.log('no href');
+      $('#' + current_target).focus();
+    }
+  }, 
 }); // End vr_admin_title events
 
 

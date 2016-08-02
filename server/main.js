@@ -125,4 +125,57 @@ Meteor.methods({
       }
     }
   },
+  'VR.updateLink': function(title_id, link){
+    if(Meteor.user()){
+
+      // check params
+      check(title_id, String);
+      check(link, String);
+
+      // log method params
+      console.log(title_id, link);
+
+      var steam_string = 'http://store.steampowered.com/app/';
+      var rift_string = 'https://www.oculus.com/experiences/rift/';
+
+      // check the link if it contains steam and oculus URL's
+      isSteam = (link.indexOf(steam_string) !== -1);
+      isRift = (link.indexOf(rift_string) !== -1);
+
+      console.log('isSteam', isSteam);
+      console.log('isRift', isRift);
+
+      // XOR check the link doesnt contain BOTH URLs 
+      if((isSteam && !isRift)||(!isSteam && isRift)){
+
+        if(isSteam){
+          // build object from stripped steam link
+          var update_obj = {};
+          var steam_regex = new RegExp(steam_string,'g');
+          stripped_link = link.replace(steam_regex,'');
+          update_obj.steam_id = stripped_link;
+
+        } else if (isRift){
+          // build object from stripped rift link
+          var update_obj = {};
+          var rift_regex = new RegExp(rift_string,'g');
+          stripped_link = link.replace(rift_regex,'');
+          update_obj.rift_id = stripped_link;
+          update_obj.support_rift = true;
+        }
+      }
+
+      if(!update_obj){
+        // no update object, dont update
+        return false;
+      }
+
+      // if title exists
+      if(VR.findOne({_id: title_id})){
+
+        // update with object
+        VR.update({_id: title_id}, { $set: update_obj});      
+      }
+    }
+  },  
 });
