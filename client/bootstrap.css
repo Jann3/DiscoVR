@@ -7039,3 +7039,8 @@ a.list-group-item-danger.active:focus {
   text-decoration: none;
   color: #555555;
 }
+
+.debug {
+  border: 1px solid red;
+}
+
