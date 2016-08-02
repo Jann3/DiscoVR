@@ -177,5 +177,44 @@ Meteor.methods({
         VR.update({_id: title_id}, { $set: update_obj});      
       }
     }
-  },  
+  }, 
+  'VR.deleteTitle': function(title_id){
+    if(Meteor.user()){
+
+      // check params
+      check(title_id, String);
+
+      // log method params
+      console.log(title_id);
+
+      // if title exists
+      if(VR.findOne({_id: title_id})){
+
+        // remove title
+        VR.remove({_id: title_id});      
+      }
+    }
+  }, 
+  'VR.updateTitle': function(title_id, new_title){
+    if(Meteor.user()){
+
+      // check params
+      check(title_id, String);
+      check(new_title, String);
+
+      // log method params
+      console.log(title_id, new_title);
+
+      // build object using new_title
+      var update_obj = {};
+      update_obj.title = new_title;
+
+      // if title exists
+      if(VR.findOne({_id: title_id})){
+
+        // update with object
+        VR.update({_id: title_id}, { $set: update_obj});      
+      }
+    }
+  }, 
 });

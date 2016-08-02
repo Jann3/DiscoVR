@@ -186,28 +186,33 @@
 <div>
   <span id="{{_id}}">
 
-    <div class="row">
-      <div class="col-xs-12 col-sm-10">
-        <h3>{{title}}</h3>
-      </div>
-
-      <div class="col-xs-12 col-sm-2 text-right">
-        <button class="btn btn-danger" type="button">
-          <span class="glyphicon glyphicon-trash" aria-hidden="false"></span>
-          <span class="hidden-xs">Delete</span>
-        </button>
-      </div>
-    </div>
 
 
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Enter the Title" value="{{title}}">
+              <input type="text" class="form-control title-btn js-title" placeholder="Enter the Title" value="{{title}}">
               <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Rename</button>
+                <button class="btn btn-danger js-delete-title" type="button">
+                  <span class="glyphicon glyphicon-trash" aria-hidden="false"></span>
+                  <span class="hidden-xs">Delete</span>
+                </button>
+              </span>
+              <span class="input-group-btn">
+                <button class="btn btn-default js-rename-title" type="button">Rename</button>
               </span>
             </div>
 
-          <h4>Hardware &amp; Features</h4>
+
+          <div class="container-fluid">
+            <div class="row" style="padding: 0px;">
+              <div class="col-xs-6" style="padding: 0px;"> 
+                <h4 style="padding: 0px;">Headsets</h4>
+              </div>
+              <div class="col-xs-6 text-right" style="padding: 0px;"> 
+                <h4 style="padding: 0px;">Controllers &amp; Genres</h4>
+              </div>
+            </div>
+          </div>
+
           <div class="btn-toolbar sm" aria-label="Supported" id="features_{{_id}}">
 
             <div class="btn-group" data-toggle="buttons" aria-label="Headset">
@@ -222,20 +227,7 @@
             </div>
 
 
-            <div class="btn-group" data-toggle="buttons" aria-label="Gameplay">
-            
-              <label class="btn btn-primary js-toggle {{#unless support_singleplayer}}active{{/unless}}" data-support="support_singleplayer">
-                <input type="checkbox" autocomplete="off">
-                <i class="fa fa-user" aria-hidden="true" title="singleplayer"></i>
-                <span class="hidden-xs hidden-sm">Singleplayer</span>
-              </label>
-
-
-              <label class="btn btn-primary js-toggle {{#unless support_multiplayer}}active{{/unless}}" data-support="support_multiplayer">
-                <input type="checkbox" autocomplete="off">
-                <i class="fa fa-users" aria-hidden="true" title="multiplayer"></i>
-                <span class="hidden-xs hidden-sm">Multiplayer</span>
-              </label>
+            <div class="btn-group pull-right" data-toggle="buttons" aria-label="Gameplay">
 
               <label class="btn btn-primary js-toggle {{#unless support_gamepad}}active{{/unless}}" data-support="support_gamepad">
                 <input type="checkbox" autocomplete="off">
@@ -257,11 +249,26 @@
                 <span class="hidden-xs hidden-sm">Keyboard &amp; Mouse</span>
               </label>
 
+
+              <label class="btn btn-primary js-toggle {{#unless support_singleplayer}}active{{/unless}}" data-support="support_singleplayer">
+                <input type="checkbox" autocomplete="off">
+                <i class="fa fa-user" aria-hidden="true" title="singleplayer"></i>
+                <span class="hidden-xs hidden-sm">Singleplayer</span>
+              </label>
+
+
+              <label class="btn btn-primary js-toggle {{#unless support_multiplayer}}active{{/unless}}" data-support="support_multiplayer">
+                <input type="checkbox" autocomplete="off">
+                <i class="fa fa-users" aria-hidden="true" title="multiplayer"></i>
+                <span class="hidden-xs hidden-sm">Multiplayer</span>
+              </label>
+
             </div>
           </div>
 
+
           <label for="rift_id_{{_id}}">
-            <h4>Oculus URL ( <a href="http://store.steampowered.com/" target="_blank">Open Oculus Home</a> )</h4>
+            <h4>Oculus URL ( <a href="https://www.oculus.com/experiences/rift/" target="_blank">Open Oculus Home</a> )</h4>
           </label>
             <div class="input-group">
               <span class="input-group-addon hidden-xs" id="basic-addon_{{_id}}">Oculus URL</span>

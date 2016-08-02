@@ -304,6 +304,59 @@ Template.vr_admin_title.events({
       $('#' + current_target).focus();
     }
   }, 
+  'click .js-rename-title': function (event) {
+
+    // jQuery caching optimization
+    var current_event_p = $(event.currentTarget).parents();
+
+    // get title_id
+    var title_id = current_event_p.closest('span').attr('id');
+
+    // get value of input
+    var title_val = current_event_p.find('.js-title').val();
+
+    console.log('title_id', title_id);
+    console.log('title_val', title_val);
+
+    // if href value
+    if(title_id && title_val){
+
+      console.log('renaming..', title_val);
+
+      Meteor.call('VR.updateTitle', title_id, title_val);
+
+    } else {
+      // no href
+      console.log('no title');
+    }
+  }, 
+  'click .js-delete-title': function (event) {
+
+    // jQuery caching optimization
+    var current_event = $(event.currentTarget);
+
+    // get title_id
+    var title_id = current_event.parents().closest('span').attr('id');
+
+    console.log('title_id', title_id);
+
+    // if title_id
+    if(title_id){
+
+      // animate hide
+      $('#'+title_id).parent().hide('fast', function(){ 
+
+        //then delete
+        console.log('deleting..', title_id);
+        Meteor.call('VR.deleteTitle', title_id);
+      });
+
+
+    } else {
+      // no title
+      console.log('no title selected');
+    }
+  }, 
 }); // End vr_admin_title events
 
 
