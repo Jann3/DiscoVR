@@ -6,11 +6,17 @@
 <body>
 </body>
 
+
+
+
 <template name="layout">
   {{> yield "header"}}
   {{> yield "main"}}
   {{> yield "footer"}}
 </template>
+
+
+
 
 <template name="navbar">
   <nav class="navbar navbar-default">
@@ -68,6 +74,8 @@
 </template>
 
 
+
+
 <template name="vr_filters">
   {{#if getSession}}
   <div class="well well-sm">
@@ -81,8 +89,11 @@
 </template>
 
 
+
+
 <template name="vr_list">
-<div class="container-fluid">
+  <!-- VR List -->
+  <div class="container-fluid">
 
     {{#unless currentUser}}
     <div class="row">
@@ -112,227 +123,236 @@
         {{> vr_admin_title}}
       {{/each}}
     {{/unless}}
-
-
-</div>
-
+  </div>
+  <!-- End VR List -->
 </template>
+
+
+
 
 <template name="vr_title">
-
-<!-- Seperator row -->
-<div class="row">
-  <div class="col-xs-12">
-    <hr>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-5 col-sm-6 col-xs-12">
-    <h4>{{title}}</h4>
+  <!-- Title -->
+  <!-- Seperator row -->
+  <div class="row">
+    <div class="col-xs-12">
+      <hr>
+    </div>
   </div>
 
-  <div class="col-md-4 col-sm-3 col-xs-6 text-center dynamic-center feature-icons">
+  <!-- Title Details -->
+  <div class="row">
+    <div class="col-md-5 col-sm-6 col-xs-12">
+      <h4>{{title}}</h4>
+    </div>
 
+    <div class="col-md-4 col-sm-3 col-xs-6 text-center dynamic-center feature-icons">
 
+    {{#if support_singleplayer}}
+      <a href="#" class="js-singleplayer">
+        <i class="fa fa-user fa-lg" aria-hidden="true" title="singleplayer"></i>
+      </a>
+    {{/if}}
+    {{#if support_multiplayer}}
+      <a href="#" class="js-multiplayer">
+        <i class="fa fa-users fa-lg" aria-hidden="true" title="multiplayer"></i>
+      </a>
+    {{/if}}
+    {{#if support_gamepad}}
+      <a href="#" class="js-gamepad">
+        <i class="fa fa-gamepad fa-lg" aria-hidden="true" title="supports gamepad"></i>
+      </a>
+    {{/if}}
+    {{#if support_motion}}
+      <a href="#" class="js-motion">
+        <i class="fa fa-hand-paper-o fa-lg" aria-hidden="true" title="supports motion controllers"></i>
+      </a>
+    {{/if}}
+    {{#if support_kbm}}
+      <a href="#" class="js-kbm">
+        <i class="fa fa-keyboard-o fa-lg" aria-hidden="true" title="supports keyboard and mouse"></i>
+      </a>
+    {{/if}}
 
+    </div>
 
-          {{#if support_singleplayer}}
-          <a href="#" class="js-singleplayer">
-            <i class="fa fa-user fa-lg" aria-hidden="true" title="singleplayer"></i>
-          </a>
-          {{/if}}
-          {{#if support_multiplayer}}
-          <a href="#" class="js-multiplayer">
-            <i class="fa fa-users fa-lg" aria-hidden="true" title="multiplayer"></i>
-          </a>
-          {{/if}}
-          {{#if support_gamepad}}
-          <a href="#" class="js-gamepad">
-            <i class="fa fa-gamepad fa-lg" aria-hidden="true" title="supports gamepad"></i>
-          </a>
-          {{/if}}
-          {{#if support_motion}}
-          <a href="#" class="js-motion">
-            <i class="fa fa-hand-paper-o fa-lg" aria-hidden="true" title="supports motion controllers"></i>
-          </a>
-          {{/if}}
-          {{#if support_kbm}}
-          <a href="#" class="js-kbm">
-            <i class="fa fa-keyboard-o fa-lg" aria-hidden="true" title="supports keyboard and mouse"></i>
-          </a>
-          {{/if}}
+    <div class="col-md-3 col-sm-3 col-xs-6 text-center remove-last-comma">
 
-        </div>
-        <div class="col-md-3 col-sm-3 col-xs-6 text-center remove-last-comma">
+      {{{getOculusLink support_rift support_vive rift_id}}}
+      {{{getSteamLink support_rift support_vive steam_id}}}
 
-              {{{getOculusLink support_rift support_vive rift_id}}}
-              {{{getSteamLink support_rift support_vive steam_id}}}
-
+    </div>
   </div>
-</div>
+  <!-- End Title -->
 
 </template>
+
+
+
 
 <template name="vr_admin_title">
-<!-- Seperator row -->
-<div class="row">
-  <div class="col-xs-12">
-    <hr>
+  <!-- Title -->
+  <!-- Seperator row -->
+  <div class="row">
+    <div class="col-xs-12">
+      <hr>
+    </div>
   </div>
-</div>
+
+  <!-- Title Details -->
+  <div>
+    <!-- Span for jQuery -->
+    <span id="{{_id}}">
+
+      <div class="input-group">
+        <input type="text" class="form-control title-btn js-title js-change-input" data-original-value="{{title}}" placeholder="Enter the Title" value="{{title}}">
+
+        <span class="input-group-btn">
+          <button class="btn btn-danger js-delete-title" type="button">
+            <span class="glyphicon glyphicon-trash" aria-hidden="false"></span>
+            <span class="hidden-xs">Delete</span>
+          </button>
+        </span>
+
+        <span class="input-group-btn">
+          <button class="btn btn-default js-rename-title" type="button">Rename</button>
+        </span>
+      </div>
 
 
-<div>
-  <span id="{{_id}}">
-
-
-
-            <div class="input-group">
-              <input type="text" class="form-control title-btn js-title" placeholder="Enter the Title" value="{{title}}">
-              <span class="input-group-btn">
-                <button class="btn btn-danger js-delete-title" type="button">
-                  <span class="glyphicon glyphicon-trash" aria-hidden="false"></span>
-                  <span class="hidden-xs">Delete</span>
-                </button>
-              </span>
-              <span class="input-group-btn">
-                <button class="btn btn-default js-rename-title" type="button">Rename</button>
-              </span>
-            </div>
-
-
-          <div class="container-fluid">
-            <div class="row" style="padding: 0px;">
-              <div class="col-xs-6" style="padding: 0px;"> 
-                <h4 style="padding: 0px;">Headsets</h4>
-              </div>
-              <div class="col-xs-6 text-right" style="padding: 0px;"> 
-                <h4 style="padding: 0px;">Controllers &amp; Genres</h4>
-              </div>
-            </div>
+      <div class="container-fluid">
+        <div class="row nopad">
+          <div class="col-xs-6 nopad"> 
+            <h4 class="nopad">Headsets</h4>
           </div>
 
-          <div class="btn-toolbar sm" aria-label="Supported" id="features_{{_id}}">
-
-            <div class="btn-group" data-toggle="buttons" aria-label="Headset">
-
-              <label class="btn btn-primary js-toggle {{#unless support_rift}}active{{/unless}}" data-support="support_rift">
-                <input type="checkbox" autocomplete="off">Rift
-              </label>
-
-              <label class="btn btn-primary js-toggle {{#unless support_vive}}active{{/unless}}" data-support="support_vive">
-                <input type="checkbox" autocomplete="off">Vive
-              </label>
-            </div>
-
-
-            <div class="btn-group pull-right" data-toggle="buttons" aria-label="Gameplay">
-
-              <label class="btn btn-primary js-toggle {{#unless support_gamepad}}active{{/unless}}" data-support="support_gamepad">
-                <input type="checkbox" autocomplete="off">
-                <i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i>
-                <span class="hidden-xs hidden-sm">Gamepad</span>
-              </label>
-
-
-              <label class="btn btn-primary js-toggle {{#unless support_motion}}active{{/unless}}" data-support="support_motion">
-                <input type="checkbox" autocomplete="off" data-feature="support_motion">
-                <i class="fa fa-hand-paper-o" aria-hidden="true" title="supports motion controllers"></i>
-                <span class="hidden-xs hidden-sm">Motion</span>
-              </label>
-
-
-              <label class="btn btn-primary js-toggle {{#unless support_kbm}}active{{/unless}}" data-support="support_kbm">
-                <input type="checkbox" autocomplete="off">
-                <i class="fa fa-keyboard-o" aria-hidden="true" title="supports keyboard and mouse"></i>
-                <span class="hidden-xs hidden-sm">Keyboard &amp; Mouse</span>
-              </label>
-
-
-              <label class="btn btn-primary js-toggle {{#unless support_singleplayer}}active{{/unless}}" data-support="support_singleplayer">
-                <input type="checkbox" autocomplete="off">
-                <i class="fa fa-user" aria-hidden="true" title="singleplayer"></i>
-                <span class="hidden-xs hidden-sm">Singleplayer</span>
-              </label>
-
-
-              <label class="btn btn-primary js-toggle {{#unless support_multiplayer}}active{{/unless}}" data-support="support_multiplayer">
-                <input type="checkbox" autocomplete="off">
-                <i class="fa fa-users" aria-hidden="true" title="multiplayer"></i>
-                <span class="hidden-xs hidden-sm">Multiplayer</span>
-              </label>
-
-            </div>
+          <div class="col-xs-6 text-right nopad"> 
+            <h4 class="nopad">Controllers &amp; Genres</h4>
           </div>
+        </div>
+      </div>
 
 
-          <label for="rift_id_{{_id}}">
-            <h4>Oculus URL ( <a href="https://www.oculus.com/experiences/rift/" target="_blank">Open Oculus Home</a> )</h4>
+      <!-- Features -->
+      <div class="btn-toolbar sm" aria-label="Supported" id="features_{{_id}}">
+        <!-- Headsets -->
+        <div class="btn-group" data-toggle="buttons" aria-label="Headsets">
+          <label class="btn btn-primary js-toggle {{#unless support_rift}}active{{/unless}}" data-support="support_rift">
+            <input type="checkbox" autocomplete="off">Rift
           </label>
-            <div class="input-group">
-              <span class="input-group-addon hidden-xs" id="basic-addon_{{_id}}">Oculus URL</span>
-              <input type="text" class="form-control" id="rift_id_{{_id}}" aria-describedby="basic-addon3" value="{{#if rift_id}}https://www.oculus.com/experiences/rift/{{rift_id}}{{/if}}" placeholder="Enter URL from Oculus Home" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-              <span class="input-group-btn">
-                  <button class="btn btn-primary js-open-link" type="button" data-target="rift_id_{{_id}}">
-                    <span class="hidden-xs">Open</span>
-                    <span class="glyphicon glyphicon-share-alt" aria-hidden="false"></span>
-                  </button>
-                </span>
-                <span class="input-group-btn">
-                  <button class="btn btn-default js-save-link" type="button" data-target="rift_id_{{_id}}">Save</button>
-                </span>
-            </div>
 
-
-          <label for="steam_id_{{_id}}">
-            <h4>Steam URL ( <a href="http://store.steampowered.com/" target="_blank">Open Steam Store</a> )</h4>
+          <label class="btn btn-primary js-toggle {{#unless support_vive}}active{{/unless}}" data-support="support_vive">
+            <input type="checkbox" autocomplete="off">Vive
           </label>
-            <div class="input-group">
-              <span class="input-group-addon hidden-xs" id="basic-addon_{{_id}}">Steam URL</span>
-              <input type="text" class="form-control" id="steam_id_{{_id}}" aria-describedby="basic-addon3" value="{{#if steam_id}}http://store.steampowered.com/app/{{steam_id}}{{/if}}" placeholder="Enter URL from Steam" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-              <span class="input-group-btn">
-                  <button class="btn btn-primary js-open-link" type="button" data-target="steam_id_{{_id}}">
-                    <span class="hidden-xs">Open</span>
-                    <span class="glyphicon glyphicon-share-alt" aria-hidden="false"></span>
-                  </button>
-                </span>
-                <span class="input-group-btn">
-                  <button class="btn btn-default js-save-link" type="button" data-target="steam_id_{{_id}}">Save</button>
-                </span>
-            </div>
+        </div>
 
-<br><br>
+        <!-- Controllers and Genres -->
+        <div class="btn-group pull-right" data-toggle="buttons" aria-label="Controllers and Genres">
+          <label class="btn btn-primary js-toggle {{#unless support_gamepad}}active{{/unless}}" data-support="support_gamepad">
+            <input type="checkbox" autocomplete="off">
+            <i class="fa fa-gamepad" aria-hidden="true" title="supports gamepad"></i>
+            <span class="hidden-xs hidden-sm">Gamepad</span>
+          </label>
 
 
-  </span>
-</div>
+          <label class="btn btn-primary js-toggle {{#unless support_motion}}active{{/unless}}" data-support="support_motion">
+            <input type="checkbox" autocomplete="off" data-feature="support_motion">
+            <i class="fa fa-hand-paper-o" aria-hidden="true" title="supports motion controllers"></i>
+            <span class="hidden-xs hidden-sm">Motion</span>
+          </label>
+
+
+          <label class="btn btn-primary js-toggle {{#unless support_kbm}}active{{/unless}}" data-support="support_kbm">
+            <input type="checkbox" autocomplete="off">
+            <i class="fa fa-keyboard-o" aria-hidden="true" title="supports keyboard and mouse"></i>
+            <span class="hidden-xs hidden-sm">Keyboard &amp; Mouse</span>
+          </label>
+
+
+          <label class="btn btn-primary js-toggle {{#unless support_singleplayer}}active{{/unless}}" data-support="support_singleplayer">
+            <input type="checkbox" autocomplete="off">
+            <i class="fa fa-user" aria-hidden="true" title="singleplayer"></i>
+            <span class="hidden-xs hidden-sm">Singleplayer</span>
+          </label>
+
+
+          <label class="btn btn-primary js-toggle {{#unless support_multiplayer}}active{{/unless}}" data-support="support_multiplayer">
+            <input type="checkbox" autocomplete="off">
+            <i class="fa fa-users" aria-hidden="true" title="multiplayer"></i>
+            <span class="hidden-xs hidden-sm">Multiplayer</span>
+          </label>
+
+        </div>
+      </div> <!-- End features -->
+
+
+      <!-- Oculus Link -->
+      <label for="rift_id_{{_id}}">
+        <h4>Oculus URL ( <a href="https://www.oculus.com/experiences/rift/" target="_blank">Open Oculus Home</a> )</h4>
+      </label>
+
+      <div class="input-group">
+        <span class="input-group-addon hidden-xs" id="basic-addon_{{_id}}">Oculus URL</span>
+        <input type="text" class="form-control js-change-input" id="rift_id_{{_id}}" aria-describedby="basic-addon3" data-original-value="{{#if rift_id}}https://www.oculus.com/experiences/rift/{{rift_id}}{{/if}}" value="{{#if rift_id}}https://www.oculus.com/experiences/rift/{{rift_id}}{{/if}}" placeholder="Enter URL from Oculus Home" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+
+        <span class="input-group-btn">
+          <button class="btn btn-primary js-open-link" type="button" data-target="rift_id_{{_id}}">
+            <span class="hidden-xs">Open</span>
+            <span class="glyphicon glyphicon-share-alt" aria-hidden="false"></span>
+          </button>
+        </span>
+
+        <span class="input-group-btn">
+          <button class="btn btn-default js-save-link" type="button" data-target="rift_id_{{_id}}">Save</button>
+        </span>
+      </div>
+
+
+      <!-- Steam Link -->
+      <label for="steam_id_{{_id}}">
+        <h4>Steam URL ( <a href="http://store.steampowered.com/" target="_blank">Open Steam Store</a> )</h4>
+      </label>
+
+      <div class="input-group">
+        <span class="input-group-addon hidden-xs" id="basic-addon_{{_id}}">Steam URL</span>
+        <input type="text" class="form-control js-change-input" id="steam_id_{{_id}}" aria-describedby="basic-addon3" data-original-value="{{#if steam_id}}http://store.steampowered.com/app/{{steam_id}}{{/if}}" value="{{#if steam_id}}http://store.steampowered.com/app/{{steam_id}}{{/if}}" placeholder="Enter URL from Steam" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+
+        <span class="input-group-btn">
+          <button class="btn btn-primary js-open-link" type="button" data-target="steam_id_{{_id}}">
+            <span class="hidden-xs">Open</span>
+            <span class="glyphicon glyphicon-share-alt" aria-hidden="false"></span>
+          </button>
+        </span>
+
+        <span class="input-group-btn">
+          <button class="btn btn-default js-save-link" type="button" data-target="steam_id_{{_id}}">Save</button>
+        </span>
+      </div>
+
+    </span>
+    
+  </div>
+  <!--End Title -->
+
 </template>
-
-
-
-
-
-
 
 
 
 
 <template name="site_info">
-<footer class="site-footer">
-  <div class="container-fluid">
+  <footer class="site-footer">
+    <div class="container-fluid">
 
-    <ul class="list-inline">
-      <li><a href="https://github.com/Jann3/DiscoVR" target="_blank">GitHub</a></li>
-      <li><a href="https://twitter.com/Jann3" target="_blank">Twitter</a></li>
-      <li>{{> loginButtons}}</li>
-      <li><a href="#" data-toggle="modal" data-target="#js-about-modal" >About</a></li>
-    </ul>
-    <hr>
-    <p>Designed by Janne as part of an awesome <a href="https://www.coursera.org/specializations/website-development" target="_blank">Specialization in Web Development on Coursera</a>. &nbsp; Oculus, Rift, Steam and Vive are trademarks of their respective owners.</p>
+      <ul class="list-inline">
+        <li><a href="https://github.com/Jann3/DiscoVR" target="_blank">GitHub</a></li>
+        <li><a href="https://twitter.com/Jann3" target="_blank">Twitter</a></li>
+        <li>{{> loginButtons}}</li>
+        <li><a href="#" data-toggle="modal" data-target="#js-about-modal" >About</a></li>
+      </ul>
+      <hr>
+      <p>Designed by Janne as part of an awesome <a href="https://www.coursera.org/specializations/website-development" target="_blank">Specialization in Web Development on Coursera</a>. &nbsp; Oculus, Rift, Steam and Vive are trademarks of their respective owners.</p>
 
-  </div>
-</footer>
+    </div>
+  </footer>
 
   <!-- About modal -->
   <div class="modal fade" id="js-about-modal" tabindex="-1" role="dialog">
@@ -361,50 +381,49 @@
 
 
    <!-- Div's for breakpoint detection -->
-    <div class="device-xs visible-xs"></div>
-    <div class="device-sm visible-sm"></div>
-    <div class="device-md visible-md"></div>
-    <div class="device-lg visible-lg"></div>
+  <div class="device-xs visible-xs"></div>
+  <div class="device-sm visible-sm"></div>
+  <div class="device-md visible-md"></div>
+  <div class="device-lg visible-lg"></div>
 
-<script type="text/javascript">
-  $(function () {
+  <script type="text/javascript">
+    $(function () {
 
-    // initialize tooltips
-    $('[data-toggle="tooltip"]').tooltip();
+      // initialize tooltips
+      $('[data-toggle="tooltip"]').tooltip();
 
-    // initialize data-tooltip as tooltip (to allow data-toggle to open modal)
-    $('[data-tooltip="true"]').tooltip();
+      // initialize data-tooltip as tooltip (to allow data-toggle to open modal)
+      $('[data-tooltip="true"]').tooltip();
 
-    // hide tooltip and focus search_input on search modal shown
-    $('#js-search-modal').on('shown.bs.modal', function () {
-      $('.js-search-button').tooltip('hide');
-      $('#search_input').select();
+      // hide tooltip and focus search_input on search modal shown
+      $('#js-search-modal').on('shown.bs.modal', function () {
+        $('.js-search-button').tooltip('hide');
+        $('#search_input').select();
+      });
+
+
+      // window resize function for dynamic styling
+      $(window).resize(function () {
+
+        waitForFinalEvent(function(){
+
+        if( isBreakpoint('xs') ) {
+          $('.dynamic-center').removeClass('text-center');
+        } else {
+          $('.dynamic-center').addClass('text-center');
+        }
+
+        }, 15, fullDateString.getTime())
+      });
+
+    function isBreakpoint( alias ) {
+      return $('.device-' + alias).is(':visible');
+    }
+
+    var waitForFinalEvent=function(){var b={};return function(c,d,a){a||(a="I am a banana!");b[a]&&clearTimeout(b[a]);b[a]=setTimeout(c,d)}}();
+    var fullDateString = new Date();
+
     });
 
-
-    // window resize function for dynamic styling
-    $(window).resize(function () {
-
-      waitForFinalEvent(function(){
-
-      if( isBreakpoint('xs') ) {
-        $('.dynamic-center').removeClass('text-center');
-      } else {
-        $('.dynamic-center').addClass('text-center');
-      }
-
-      }, 15, fullDateString.getTime())
-    });
-
-  function isBreakpoint( alias ) {
-    return $('.device-' + alias).is(':visible');
-  }
-
-  var waitForFinalEvent=function(){var b={};return function(c,d,a){a||(a="I am a banana!");b[a]&&clearTimeout(b[a]);b[a]=setTimeout(c,d)}}();
-  var fullDateString = new Date();
-
-  });
-
-
-</script>
+  </script>
 </template>

@@ -7047,3 +7047,7 @@ a.list-group-item-danger.active:focus {
 .title-btn {
   font-size: 26px;
 }
+
+.nopad {
+  padding: 0px;
+}

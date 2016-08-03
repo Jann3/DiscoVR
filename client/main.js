@@ -20,6 +20,9 @@ Router.route('/', function () {
 // define default_search regexp, use it to initialize a reactive var for searches
 var search = new ReactiveVar();
 
+
+
+
 Template.layout.events({
   'click .js-headset': function (event) {
     event.preventDefault();
@@ -200,6 +203,8 @@ Template.layout.events({
 }); // End layout events
 
 
+
+
 Template.vr_filters.events({
   'click .js-reset-filters': function () {
 
@@ -222,6 +227,8 @@ Template.vr_filters.events({
     $('.navbar').find('li').removeClass('active');
   }, 
 }); // End vr_filters events
+
+
 
 
 Template.vr_admin_title.events({
@@ -287,15 +294,19 @@ Template.vr_admin_title.events({
     // get data-target
     var current_target = current_event.data('target');
 
-
     // get value of input
     var href_val = $('#' + current_target).val();
 
     // if href value
-    if(href_val && href_val){
+    if(title_id && href_val){
 
       console.log('saving..', href_val);
 
+      // this might need changing
+      // set the data attribute
+      $('#' + current_target).data('original-value', href_val);
+
+      // call update
       Meteor.call('VR.updateLink', title_id, href_val);
 
     } else {
@@ -306,23 +317,21 @@ Template.vr_admin_title.events({
   }, 
   'click .js-rename-title': function (event) {
 
-    // jQuery caching optimization
-    var current_event_p = $(event.currentTarget).parents();
-
     // get title_id
-    var title_id = current_event_p.closest('span').attr('id');
+    var title_id = $(event.currentTarget).parents().closest('span').attr('id');
 
     // get value of input
-    var title_val = current_event_p.find('.js-title').val();
-
-    console.log('title_id', title_id);
-    console.log('title_val', title_val);
+    var title_val = $('#'+title_id).find('.js-title').val();
 
     // if href value
     if(title_id && title_val){
 
-      console.log('renaming..', title_val);
+      console.log('renaming..', title_id, title_val);
 
+      // set the data attribute
+      $('#'+title_id).find('.js-title').data('original-value', title_val);
+
+      // call update
       Meteor.call('VR.updateTitle', title_id, title_val);
 
     } else {
@@ -338,29 +347,47 @@ Template.vr_admin_title.events({
     // get title_id
     var title_id = current_event.parents().closest('span').attr('id');
 
-    console.log('title_id', title_id);
-
     // if title_id
-    if(title_id){
+    if(!title_id){
+
+      // no title
+      console.log('no title selected');
+
+    } else {
 
       // animate hide
       $('#'+title_id).parent().hide('fast', function(){ 
 
-        //then delete
         console.log('deleting..', title_id);
+
+        // call delete
         Meteor.call('VR.deleteTitle', title_id);
       });
+    } 
+  }, 
+  'change .js-change-input, keyup .js-change-input': function (event) {
 
+    // when input is changed or keypressed call timeout function
+    setTimeout(function(){
 
-    } else {
-      // no title
-      console.log('no title selected');
-    }
+      // get value and original value
+      new_value = $(event.currentTarget).val()
+      old_value = $(event.currentTarget).data('original-value');
+
+      if(new_value!=old_value){
+        // if not the same change bg
+        $(event.currentTarget).css('background-color','#FFF2E6');
+      } else {
+        // reset bg
+        $(event.currentTarget).css('background-color','#FFFFFF');
+      }
+      // run after 100ms
+    }, 100);
+
   }, 
 }); // End vr_admin_title events
 
 
- 
 
 
 Template.vr_list.helpers({
@@ -415,6 +442,8 @@ Template.vr_list.helpers({
 }); // End vr_list helpers
 
 
+
+
 Template.vr_title.helpers({
   getSteamLink:function(support_rift, support_vive, steam_id){
     if(!steam_id){
@@ -461,6 +490,8 @@ Template.vr_title.helpers({
 }); // End vr_title helpers
 
 
+
+
 Template.vr_filters.helpers({
   getSession:function(){
     if(Session.get('headset')||Session.get('support_gamepad')||Session.get('support_motion')||Session.get('support_kbm')||Session.get('support_singleplayer')||Session.get('support_multiplayer')||search.get()){
@@ -470,7 +501,3 @@ Template.vr_filters.helpers({
     }
   },
 }); // End vr_filters helpers
-
-Meteor.call('getRift', function(error, result) {
-  console.log(result);
-});
