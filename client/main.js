@@ -161,6 +161,40 @@ Template.layout.events({
     // remove focus
     navbar_multiplayer.blur();
   },
+  'keyup #search_input':function(event){
+    // prevent submit
+    event.preventDefault();
+
+    if(search_input.value){
+
+      // log input
+      console.log('search_input ', search_input.value);
+
+      // trim whitespace from search input
+      var search_trim_whitespace = search_input.value.trim();
+
+      // trim special characters
+      var trim_special_chars = search_trim_whitespace.replace(/[^a-zA-Z0-9'., ]/g, '');
+
+      // replace whitespace with regex AND operator
+      var whitespace_regex = trim_special_chars.replace(/ /g, ')(?=.*');
+
+      // trim duplicate regex insertions of (?=.*) caused by extra whitespace
+      var trim_excess_regex = whitespace_regex.replace(/\(\?=.\*\)/g,'');
+
+      // build final regex
+      var search_regex = new RegExp('(?=.*' +trim_excess_regex+ ').*','i');
+
+      // log output regex and set it as search
+      console.log('search_regex', search_regex);
+      search.set(search_regex); 
+
+    } else {
+      // no value clear search
+      search.set(undefined);
+    }
+
+  }, 
   'submit #search_form':function(event){
     // prevent submit
     event.preventDefault();

@@ -6982,6 +6982,7 @@ a.list-group-item-danger.active:focus {
     margin-bottom: 2px;
   }
 .site-footer {
+  padding: 30px 10px 30px 10px;
   text-align: center;
   }
 }
@@ -7063,4 +7064,8 @@ a.list-group-item-danger.active:focus {
 
 .bottom {
   align-self: flex-end;
+}
+
+#search_input {
+  font-size: 21px;
 }
