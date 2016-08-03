@@ -8,13 +8,15 @@ Router.configure({
   layoutTemplate: 'layout'
 });
 
-// specify the top level route, the page users see when they arrive at the site
+//specify the top level route, the page users see when they arrive at the site
 Router.route('/', function () {
   this.render('navbar', {to:'header'});
 
   this.render('vr_list', {to:'main'});
   
   this.render('site_info', {to:'footer'}); 
+}, {
+  name: 'main_page'
 });
 
 
@@ -209,9 +211,30 @@ Template.layout.events({
 Template.vr_list.events({
   'click .js-new-title': function () {
 
-    Meteor.call('VR.newTitle');
+  Meteor.call('VR.newTitle');
 
-    Router.go('/');
+  // get the first stretch element and its height
+  var first_stretch = $('.stretch').first();
+  height = first_stretch.height();
+  console.log(height);
+
+
+  first_stretch.animate({
+    // double its height
+    height: '+=' + height,
+  }, 200, function() {
+    // then take the last 2 and prepend
+    $('.title-details').last().prependTo('#vr_admin_list');
+    $('.title-seperator').last().prependTo('#vr_admin_list');
+  }).animate({
+    // half the height
+    height: "-=" + height
+  }, 1, function() {
+    // force reload
+    location.reload();
+    //Router.go('main_page');
+    });
+
   }, 
 }); // End vr_list events
 
@@ -451,7 +474,7 @@ Template.vr_list.helpers({
     if(Meteor.user()){
       return Meteor.user().username;
     }
-  },
+  }, 
 }); // End vr_list helpers
 
 

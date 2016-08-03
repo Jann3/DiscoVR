@@ -135,7 +135,9 @@
       </div>
     </div>
       {{#each supported_title}}
+      <div id="vr_admin_list">
         {{> vr_admin_title}}
+      </div>
       {{/each}}
     {{/unless}}
   </div>
@@ -207,7 +209,7 @@
 <template name="vr_admin_title">
   <!-- Title -->
   <!-- Seperator row -->
-  <div class="row">
+  <div class="row title-seperator">
     <div class="col-xs-12">
       <hr>
       <br>
@@ -215,9 +217,9 @@
   </div>
 
   <!-- Title Details -->
-  <div>
+  <div class="stretch title-details">
     <!-- Span for jQuery -->
-    <span id="{{_id}}">
+    <span id="{{_id}}" class="bottom">
 
       <div class="input-group">
         <input type="text" class="form-control title-btn js-title js-change-input" data-original-value="{{title}}" placeholder="Enter the Title" value="{{title}}">
@@ -358,8 +360,8 @@
       {{/if}}
 
     </span>
+    <br>
   </div>
-  <br>
   <!--End Title -->
 
 </template>

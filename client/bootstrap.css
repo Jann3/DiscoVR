@@ -7053,3 +7053,14 @@ a.list-group-item-danger.active:focus {
 .nopad {
   padding: 0px;
 }
+
+
+.stretch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom {
+  align-self: flex-end;
+}
