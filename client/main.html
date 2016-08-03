@@ -78,12 +78,14 @@
 
 <template name="vr_filters">
   {{#if getSession}}
-  <div class="well well-sm">
-    <h4>
-    Results shown are filtered.
-
-    <a href="#" class="js-reset-filters label label-primary">Clear</a>
-    </h4>
+  <div class="container-fluid">
+    <div class="well well-sm">
+      <h4>
+      Results shown are filtered.
+      {{getSearch}}
+      <a href="#" class="js-reset-filters label label-primary">Clear</a>
+      </h4>
+    </div>
   </div>
   {{/if}}
 </template>
@@ -116,7 +118,20 @@
     {{else}}
     <div class="row">
       <div class="col-xs-12">
-        <h3>Titles Administration - {{getUsername}}</h3>
+        <h3>Titles Administration Page - {{getUsername}}</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-6 col-sm-8">
+        <p>About this admin login page what do we do here? Well you can add stuff and delete things too. It's for maintaining the website</p>
+      </div>
+      <div class="col-xs-6 col-sm-4">
+
+        <button type="button" class="btn btn-default btn-block js-new-title">
+          <i class="fa fa-file fa-lg" aria-hidden="true"></i> New Title
+        </button>
+
       </div>
     </div>
       {{#each supported_title}}
@@ -195,6 +210,7 @@
   <div class="row">
     <div class="col-xs-12">
       <hr>
+      <br>
     </div>
   </div>
 
@@ -287,7 +303,10 @@
 
       <!-- Oculus Link -->
       <label for="rift_id_{{_id}}">
-        <h4>Oculus URL ( <a href="https://www.oculus.com/experiences/rift/" target="_blank">Open Oculus Home</a> )</h4>
+        <h4>Oculus ( 
+          <a href="https://www.oculus.com/experiences/rift/" target="_blank">Open Oculus Home
+          <span class="glyphicon glyphicon-share-alt" aria-hidden="false"></span></a> )
+        </h4>
       </label>
 
       <div class="input-group">
@@ -309,7 +328,10 @@
 
       <!-- Steam Link -->
       <label for="steam_id_{{_id}}">
-        <h4>Steam URL ( <a href="http://store.steampowered.com/" target="_blank">Open Steam Store</a> )</h4>
+        <h4>Steam ( 
+          <a href="http://store.steampowered.com/" target="_blank">Open Steam Store 
+          <span class="glyphicon glyphicon-share-alt" aria-hidden="false"></span></a> )
+        </h4>
       </label>
 
       <div class="input-group">
@@ -328,9 +350,16 @@
         </span>
       </div>
 
+      {{#if draft}}
+      <br>
+      <button type="button" class="btn btn-success btn-block js-publish-title">
+        <i class="fa fa-file fa-lg" aria-hidden="true"></i> Publish This Title
+      </button>
+      {{/if}}
+
     </span>
-    
   </div>
+  <br>
   <!--End Title -->
 
 </template>

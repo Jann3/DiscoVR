@@ -1,6 +1,7 @@
 // define VR collection and subscribe
 VR = new Mongo.Collection('VR');
 Meteor.subscribe('VR');
+Meteor.subscribe('Users');
 
 // set up the main template the the router will use to build pages
 Router.configure({
@@ -205,6 +206,18 @@ Template.layout.events({
 
 
 
+Template.vr_list.events({
+  'click .js-new-title': function () {
+
+    Meteor.call('VR.newTitle');
+
+    Router.go('/');
+  }, 
+}); // End vr_list events
+
+
+
+
 Template.vr_filters.events({
   'click .js-reset-filters': function () {
 
@@ -376,7 +389,7 @@ Template.vr_admin_title.events({
 
       if(new_value!=old_value){
         // if not the same change bg
-        $(event.currentTarget).css('background-color','#FFF2E6');
+        $(event.currentTarget).css('background-color','#E6E6FF');
       } else {
         // reset bg
         $(event.currentTarget).css('background-color','#FFFFFF');
@@ -499,5 +512,12 @@ Template.vr_filters.helpers({
     } else {
       return false;
     }
-  },
+  }, 
+  getSearch:function(){
+    if (search.get()){
+      return "search:" + search.get();
+    } else {
+      return false;
+    }
+  }, 
 }); // End vr_filters helpers

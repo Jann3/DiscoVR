@@ -98,7 +98,17 @@ DDPRateLimiter.addRule({
 // Publish entire VR
 
 Meteor.publish('VR', function(){
-  return VR.find({});
+  if(this.userId){
+    // if logged in shows drafts first
+    return VR.find({}, { sort: { 'draft': -1, 'title': 1 }});
+  } else {
+    // show everything except drafts
+    return VR.find({ draft : { $exists : false } }, { sort: { 'title': 1 }});
+  }
+});
+
+Meteor.publish('Users', function(){
+  return Meteor.users.find({});
 });
 
 Meteor.methods({
@@ -215,6 +225,14 @@ Meteor.methods({
         // update with object
         VR.update({_id: title_id}, { $set: update_obj});      
       }
+    }
+  }, 
+  'VR.newTitle': function(){
+    if(Meteor.user()){
+
+      // create a blank
+      VR.insert({title: "", category: "games", support_rift: false, support_vive: false, support_singleplayer: false, support_multiplayer: false, support_gamepad: false, support_motion: false, support_kbm: false, draft: true});
+
     }
   }, 
 });

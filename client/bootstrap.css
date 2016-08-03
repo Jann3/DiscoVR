@@ -273,6 +273,7 @@ th {
   src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
+  text-decoration: none;
   position: relative;
   top: 1px;
   display: inline-block;
@@ -3018,7 +3019,7 @@ select[multiple].input-lg {
   background-image: none;
   border: 1px solid transparent;
   white-space: nowrap;
-  padding: 10px 15px;
+  padding: 10px 14px;
   font-size: 15px;
   line-height: 1.42857143;
   border-radius: 0;
@@ -7045,6 +7046,7 @@ a.list-group-item-danger.active:focus {
 }
 
 .title-btn {
+  color: #444444;
   font-size: 26px;
 }
 
