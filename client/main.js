@@ -253,6 +253,27 @@ Template.layout.events({
   'click .js-search-button':function(event){
     $('.js-search-button').tooltip('hide');
   }, 
+  'click .js-remove-search': function (event) {
+    event.preventDefault();
+
+    // get the term to remove
+    var remove_term = $(event.currentTarget).closest('a').text();
+
+    // get current search input value
+    var search_val = search_input.value;
+
+    // create regex for removing search term
+    var term_regex = new RegExp('' + remove_term + '','i');
+
+    // strip search term from value
+    var stripped_val = search_val.replace(term_regex, '');
+
+    // trim whitespace and set input value
+    search_input.value = stripped_val.trim();
+
+    // submit input
+    $('#search_input').submit();
+  },
 }); // End layout events
 
 
