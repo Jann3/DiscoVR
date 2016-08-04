@@ -256,14 +256,17 @@ Template.layout.events({
   'click .js-remove-search': function (event) {
     event.preventDefault();
 
-    // get the term to remove
-    var remove_term = $(event.currentTarget).closest('a').text();
+    // get the text of the term
+    var remove_term_text = $(event.currentTarget).closest('a').text();
+
+    // remove all quotes from text
+    var remove_term = remove_term_text.replace(/'/g,'');
+
+    // create regex for removing term
+    var term_regex = new RegExp('' + remove_term + '','g');
 
     // get current search input value
     var search_val = search_input.value;
-
-    // create regex for removing search term
-    var term_regex = new RegExp('' + remove_term + '','i');
 
     // strip search term from value
     var stripped_val = search_val.replace(term_regex, '');
@@ -282,29 +285,20 @@ Template.layout.events({
 Template.vr_list.events({
   'click .js-new-title': function () {
 
-  Meteor.call('VR.newTitle');
-
   // get the first stretch element and its height
   var first_stretch = $('.stretch').first();
-  height = first_stretch.height();
-  console.log(height);
-
+  var stretch_height = first_stretch.height();
 
   first_stretch.animate({
-    // double its height
-    height: '+=' + height,
-  }, 200, function() {
-    // then take the last 2 and prepend
-    $('.title-details').last().prependTo('#vr_admin_list');
-    $('.title-seperator').last().prependTo('#vr_admin_list');
-  }).animate({
-    // half the height
-    height: "-=" + height
-  }, 1, function() {
-    // force reload
-    location.reload();
-    //Router.go('main_page');
-    });
+    // double the height
+    height: '+=' + stretch_height
+  }, 100).animate({
+    // then half it
+    height: '-=' + stretch_height
+  }, 0, function() {
+    // then create new title
+    Meteor.call('VR.newTitle');
+  });
 
   }, 
 }); // End vr_list events
@@ -472,6 +466,29 @@ Template.vr_admin_title.events({
       });
     } 
   }, 
+  'click .js-publish-title': function (event) {
+
+    // jQuery caching optimization
+    var current_event = $(event.currentTarget);
+
+    // get title_id
+    var title_id = current_event.parents().closest('span').attr('id');
+
+    // if title_id
+    if(!title_id){
+
+      // no title
+      console.log('no title selected');
+
+    } else {
+
+      // animate hide
+      console.log('publishing..', title_id);
+
+      // call publish
+      Meteor.call('VR.publishTitle', title_id);
+    } 
+  }, 
   'change .js-change-input, keyup .js-change-input': function (event) {
 
     // when input is changed or keypressed call timeout function
@@ -539,7 +556,7 @@ Template.vr_list.helpers({
     console.log(search_obj);
 
     // query database with search object
-    return VR.find(search_obj);
+    return VR.find(search_obj, { sort: { 'draft': -1, 'title': 1 }});
   },
   getUsername:function(){
     if(Meteor.user()){
@@ -617,13 +634,13 @@ Template.vr_filters.helpers({
       var trim_special_chars = search_trim_whitespace.replace(/[^a-zA-Z0-9'., ]/g, '');
 
       // replace whitespace with regex AND operator
-      var whitespace_regex = trim_special_chars.replace(/ /g, '</a> <a href="#" class="js-remove-search label label-primary">');
+      var whitespace_regex = trim_special_chars.replace(/ /g, '\'</a> <a href="#" class="js-remove-search label label-primary">\'');
 
       // trim duplicate regex insertions of (?=.*) caused by extra whitespace
-      var trim_excess_regex = whitespace_regex.replace(/<a href=\"#\" class=\"js-remove-search label label-primary\"><\/a> /g,'');
+      var trim_excess_regex = whitespace_regex.replace(/<a href=\"#\" class=\"js-remove-search label label-primary\">\'\'<\/a> /g,'');
 
       // build final search_labels html
-      var search_labels = '<!-- Search labels-->' + '<a href="#" class="js-remove-search label label-primary" title="remove search">' + trim_excess_regex + '</a>';
+      var search_labels = '<!-- Search labels-->' + '<a href="#" class="js-remove-search label label-primary" title="remove search">\'' + trim_excess_regex + '\'</a>';
 
       return search_labels;
     } else {
@@ -638,22 +655,22 @@ Template.vr_filters.helpers({
     if(Session.get('headset')||Session.get('support_gamepad')||Session.get('support_motion')||Session.get('support_kbm')||Session.get('support_singleplayer')||Session.get('support_multiplayer')){
 
       if(Session.get('headset')){
-        filters_string += '<a href="#" class="js-headset-filter label label-default"> ' + Session.get('headset') + '</a> ';
+        filters_string += '<a href="#" class="js-headset-filter label label-default" title="Remove This Filter"> ' + Session.get('headset') + '</a> ';
       } 
       if (Session.get('support_gamepad')){
-        filters_string += '<a href="#" class="js-gamepad label label-default"><i class="fa fa-gamepad fa-lg hidden-md hidden-lg" aria-hidden="true" title="supports gamepad"></i><span class="hidden-xs hidden-sm"> Gamepad</span></a> ';
+        filters_string += '<a href="#" class="js-gamepad label label-default" title="Remove Gamepad Filter"><i class="fa fa-gamepad fa-lg hidden-md hidden-lg" aria-hidden="true"></i><span class="hidden-xs hidden-sm"> Gamepad</span></a> ';
       }
       if (Session.get('support_motion')){
-        filters_string += '<a href="#" class="js-motion label label-default"><i class="fa fa-hand-paper-o fa-lg hidden-md hidden-lg" aria-hidden="true" title="supports motion controllers"></i><span class="hidden-xs hidden-sm"> Motion Controllers</span></a> ';
+        filters_string += '<a href="#" class="js-motion label label-default" title="Remove Motion Filter"><i class="fa fa-hand-paper-o fa-lg hidden-md hidden-lg" aria-hidden="true"></i><span class="hidden-xs hidden-sm"> Motion Controllers</span></a> ';
       } 
       if (Session.get('support_kbm')){
-        filters_string += '<a href="#" class="js-kbm label label-default"><i class="fa fa-keyboard-o fa-lg hidden-md hidden-lg" aria-hidden="true" title="supports keyboard and mouse"></i><span class="hidden-xs hidden-sm"> Keyboard &amp; Mouse</span></a> ';
+        filters_string += '<a href="#" class="js-kbm label label-default" title="Remove Keyboard &amp; Mouse Filter"><i class="fa fa-keyboard-o fa-lg hidden-md hidden-lg" aria-hidden="true"></i><span class="hidden-xs hidden-sm"> Keyboard &amp; Mouse</span></a> ';
       } 
       if (Session.get('support_singleplayer')){
-        filters_string += '<a href="#" class="js-singleplayer label label-default"><i class="fa fa-user fa-lg hidden-md hidden-lg" aria-hidden="true" title="singleplayer"></i><span class="hidden-xs hidden-sm"> Singleplayer</span></a> ';
+        filters_string += '<a href="#" class="js-singleplayer label label-default" title="Remove Singleplayer Filter"><i class="fa fa-user fa-lg hidden-md hidden-lg" aria-hidden="true"></i><span class="hidden-xs hidden-sm"> Singleplayer</span></a> ';
       }
       if (Session.get('support_multiplayer')){
-        filters_string += '<a href="#" class="js-multiplayer label label-default"><i class="fa fa-users fa-lg hidden-md hidden-lg" aria-hidden="true" title="multiplayer"></i><span class="hidden-xs hidden-sm"> Multiplayer</span></a> ';
+        filters_string += '<a href="#" class="js-multiplayer label label-default" title="Remove Multiplayer Filter"><i class="fa fa-users fa-lg hidden-md hidden-lg" aria-hidden="true"></i><span class="hidden-xs hidden-sm"> Multiplayer</span></a> ';
       } 
     }
 

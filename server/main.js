@@ -231,8 +231,30 @@ Meteor.methods({
     if(Meteor.user()){
 
       // create a blank
-      VR.insert({title: "", category: "games", support_rift: false, support_vive: false, support_singleplayer: false, support_multiplayer: false, support_gamepad: false, support_motion: false, support_kbm: false, draft: true});
+      VR.insert({ draft: true, title: "", category: "games", support_rift: false, support_vive: false, support_singleplayer: false, support_multiplayer: false, support_gamepad: false, support_motion: false, support_kbm: false});
 
     }
   }, 
+  'VR.publishTitle': function(title_id){
+    if(Meteor.user()){
+
+      // check params
+      check(title_id, String);
+
+      // log method params
+      console.log(title_id);
+
+      // build object using new_title
+      var update_obj = {};
+      update_obj.draft = true;
+
+      // if title exists
+      if(VR.findOne({_id: title_id})){
+
+        // update with object
+        VR.update({_id: title_id}, { $unset: update_obj});      
+      }
+    }
+  }, 
+
 });
