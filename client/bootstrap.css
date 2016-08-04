@@ -16,8 +16,10 @@ html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  background-color: #222222;
 }
 body {
+  background-color: #ffffff;
   margin: 0;
 }
 article,
@@ -5981,7 +5983,7 @@ button.close {
 @media (min-width: 768px) {
   .modal-dialog {
     width: 600px;
-    margin: 77px auto;
+    margin: 3px auto;
   }
   .modal-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -6942,7 +6944,9 @@ a.list-group-item-danger.active:focus {
 }
 
 .site-footer {
-  border: 1px solid #000000;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px 0px 0px 0px;
   padding: 30px;
   padding-bottom: 120px;
   margin-top: 100px;
@@ -7070,3 +7074,4 @@ a.list-group-item-danger.active:focus {
 #search_input {
   font-size: 21px;
 }
+
