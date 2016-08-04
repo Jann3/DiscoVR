@@ -81,9 +81,12 @@
   <div class="container-fluid">
     <div class="well well-sm">
       <h4>
-      Results shown are filtered.
-      {{getSearch}}
-      <a href="#" class="js-reset-filters label label-primary">Clear</a>
+      <span class="hidden-xs hidden-sm">Showing Results Filtered By</span>
+      <span class="hidden-xs hidden-md hidden-lg">Showing Filtered Results</span>
+      <span class="hidden-sm hidden-md hidden-lg">Filtered Results</span>
+      {{{getFilters}}}
+      {{{getSearch}}}
+      <a href="#" class="js-reset-filters label label-warning" title="Reset All Filters"><i class="fa fa-close fa-lg" aria-hidden="true"></i> Reset<span class="hidden-xs"> All</span></a>
       </h4>
     </div>
   </div>
@@ -115,6 +118,7 @@
       {{#each supported_title}}
         {{> vr_title}}
       {{/each}}
+
     {{else}}
     <div class="row">
       <div class="col-xs-12">

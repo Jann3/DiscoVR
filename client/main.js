@@ -54,6 +54,22 @@ Template.layout.events({
     // remove focus
     navbar_headset.blur();
   },
+  'click .js-headset-filter': function (event) {
+    event.preventDefault();
+
+    // jQuery caching optimization
+    var navbar_headset = $('.navbar').find('.js-headset');
+
+    // remove active class from all headset
+    navbar_headset.parent('li').removeClass('active');
+
+    // reset headset and tooltips
+    Session.set('headset', undefined);
+    navbar_headset.attr('data-original-title', '');
+
+    // remove focus
+    navbar_headset.blur();
+  },
   'click .js-gamepad': function (event) {
     event.preventDefault();
 
@@ -572,7 +588,56 @@ Template.vr_filters.helpers({
   }, 
   getSearch:function(){
     if (search.get()){
-      return "search:" + search.get();
+
+      // trim whitespace from search input
+      var search_trim_whitespace = search_input.value.trim();
+
+      // trim special characters
+      var trim_special_chars = search_trim_whitespace.replace(/[^a-zA-Z0-9'., ]/g, '');
+
+      // replace whitespace with regex AND operator
+      var whitespace_regex = trim_special_chars.replace(/ /g, '</a> <a href="#" class="js-remove-search label label-primary">');
+
+      // trim duplicate regex insertions of (?=.*) caused by extra whitespace
+      var trim_excess_regex = whitespace_regex.replace(/<a href=\"#\" class=\"js-remove-search label label-primary\"><\/a> /g,'');
+
+      // build final search_labels html
+      var search_labels = '<!-- Search labels-->' + '<a href="#" class="js-remove-search label label-primary" title="remove search">' + trim_excess_regex + '</a>';
+
+      return search_labels;
+    } else {
+      return false;
+    }
+  }, 
+  getFilters:function(){
+
+    // initialise filter string
+    var filters_string = '';
+
+    if(Session.get('headset')||Session.get('support_gamepad')||Session.get('support_motion')||Session.get('support_kbm')||Session.get('support_singleplayer')||Session.get('support_multiplayer')){
+
+      if(Session.get('headset')){
+        filters_string += '<a href="#" class="js-headset-filter label label-default"> ' + Session.get('headset') + '</a> ';
+      } 
+      if (Session.get('support_gamepad')){
+        filters_string += '<a href="#" class="js-gamepad label label-default"><i class="fa fa-gamepad fa-lg hidden-md hidden-lg" aria-hidden="true" title="supports gamepad"></i><span class="hidden-xs hidden-sm"> Gamepad</span></a> ';
+      }
+      if (Session.get('support_motion')){
+        filters_string += '<a href="#" class="js-motion label label-default"><i class="fa fa-hand-paper-o fa-lg hidden-md hidden-lg" aria-hidden="true" title="supports motion controllers"></i><span class="hidden-xs hidden-sm"> Motion Controllers</span></a> ';
+      } 
+      if (Session.get('support_kbm')){
+        filters_string += '<a href="#" class="js-kbm label label-default"><i class="fa fa-keyboard-o fa-lg hidden-md hidden-lg" aria-hidden="true" title="supports keyboard and mouse"></i><span class="hidden-xs hidden-sm"> Keyboard &amp; Mouse</span></a> ';
+      } 
+      if (Session.get('support_singleplayer')){
+        filters_string += '<a href="#" class="js-singleplayer label label-default"><i class="fa fa-user fa-lg hidden-md hidden-lg" aria-hidden="true" title="singleplayer"></i><span class="hidden-xs hidden-sm"> Singleplayer</span></a> ';
+      }
+      if (Session.get('support_multiplayer')){
+        filters_string += '<a href="#" class="js-multiplayer label label-default"><i class="fa fa-users fa-lg hidden-md hidden-lg" aria-hidden="true" title="multiplayer"></i><span class="hidden-xs hidden-sm"> Multiplayer</span></a> ';
+      } 
+    }
+
+    if (filters_string){
+      return filters_string;
     } else {
       return false;
     }
