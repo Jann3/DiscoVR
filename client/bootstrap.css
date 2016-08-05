@@ -7075,3 +7075,19 @@ a.list-group-item-danger.active:focus {
   font-size: 21px;
 }
 
+#js-about-modal {
+  font-size: 1.1em;
+}
+
+#js-about-modal .modal-content, #js-about-modal button.close {
+  background-color: #333333;
+  color: #eeeeee;
+}
+
+#js-about-modal .modal-header, #js-about-modal .modal-footer, #js-about-modal hr {
+  border-color: #3a3a3a;
+}
+
+.modal-open .modal, .btn:focus, .btn:active, a:focus {
+    outline:none;
+}
