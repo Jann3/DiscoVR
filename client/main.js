@@ -289,16 +289,24 @@ Template.vr_list.events({
   var first_stretch = $('.stretch').first();
   var stretch_height = first_stretch.height();
 
-  first_stretch.animate({
-    // double the height
-    height: '+=' + stretch_height
-  }, 100).animate({
-    // then half it
-    height: '-=' + stretch_height
-  }, 0, function() {
-    // then create new title
+  // if element and height exist
+  if(first_stretch&&stretch_height){
+
+    first_stretch.animate({
+      // double the height
+      height: '+=' + stretch_height
+    }, 100).animate({
+      // then half it
+      height: '-=' + stretch_height
+    }, 0, function() {
+      // animation complete now create new title
+      Meteor.call('VR.newTitle');
+    });
+
+  } else {
+    // no element to animate, just create new title
     Meteor.call('VR.newTitle');
-  });
+  }
 
   }, 
 }); // End vr_list events
@@ -424,8 +432,14 @@ Template.vr_admin_title.events({
     // get value of input
     var title_val = $('#'+title_id).find('.js-title').val();
 
-    // if href value
-    if(title_id && title_val){
+    // check title
+    if(!title_id){
+
+      // no title
+      console.log('no title');
+      return false;
+
+    } else {
 
       console.log('renaming..', title_id, title_val);
 
@@ -435,10 +449,7 @@ Template.vr_admin_title.events({
       // call update
       Meteor.call('VR.updateTitle', title_id, title_val);
 
-    } else {
-      // no href
-      console.log('no title');
-    }
+    } 
   }, 
   'click .js-delete-title': function (event) {
 

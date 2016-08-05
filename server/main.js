@@ -121,7 +121,7 @@ Meteor.methods({
       check(hasSupport, Boolean);
 
       // log method params
-      console.log(title_id, data_support, hasSupport);
+      console.log('updateFeatureSupport', title_id, data_support, hasSupport);
 
       // build object using data_support as key
       var update_obj = {};
@@ -143,7 +143,7 @@ Meteor.methods({
       check(link, String);
 
       // log method params
-      console.log(title_id, link);
+      console.log('updateLink', title_id, link);
 
       var steam_string = 'http://store.steampowered.com/app/';
       var rift_string = 'https://www.oculus.com/experiences/rift/';
@@ -195,7 +195,7 @@ Meteor.methods({
       check(title_id, String);
 
       // log method params
-      console.log(title_id);
+      console.log('deleteTitle', title_id);
 
       // if title exists
       if(VR.findOne({_id: title_id})){
@@ -213,7 +213,7 @@ Meteor.methods({
       check(new_title, String);
 
       // log method params
-      console.log(title_id, new_title);
+      console.log('updateTitle', title_id, new_title);
 
       // build object using new_title
       var update_obj = {};
@@ -231,8 +231,10 @@ Meteor.methods({
     if(Meteor.user()){
 
       // create a blank
-      VR.insert({ draft: true, title: "", category: "games", support_rift: false, support_vive: false, support_singleplayer: false, support_multiplayer: false, support_gamepad: false, support_motion: false, support_kbm: false});
+      var title_id = VR.insert({ draft: true, title: "", category: "games", support_rift: false, support_vive: false, support_singleplayer: false, support_multiplayer: false, support_gamepad: false, support_motion: false, support_kbm: false});
 
+      // log title_id
+      console.log('newTitle', title_id);
     }
   }, 
   'VR.publishTitle': function(title_id){
@@ -242,7 +244,7 @@ Meteor.methods({
       check(title_id, String);
 
       // log method params
-      console.log(title_id);
+      console.log('publishTitle', title_id);
 
       // build object using new_title
       var update_obj = {};
