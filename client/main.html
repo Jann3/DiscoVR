@@ -380,8 +380,14 @@
       <ul class="list-inline">
         <li><a href="https://github.com/Jann3/DiscoVR" target="_blank">GitHub</a></li>
         <li><a href="https://twitter.com/Jann3" target="_blank">Twitter</a></li>
-        <li>{{> loginButtons}}</li>
-        <li><a href="#" data-toggle="modal" data-target="#js-about-modal" >About</a></li>
+        
+        {{#if currentUser}}
+        <li><a href="#" class="js-logout">Logout</a></li>
+        {{else}}
+        <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
+        {{/if}}
+
+        <li><a href="#" data-toggle="modal" data-target="#js-about-modal">About</a></li>
       </ul>
       <hr>
       <p>Designed by Janne as part of an awesome <a href="https://www.coursera.org/specializations/website-development" target="_blank">Specialization in Web Development on Coursera</a>.</p> 
@@ -389,6 +395,9 @@
 
     </div>
   </footer>
+
+
+
 
   <!-- About modal -->
   <div class="modal fade" id="js-about-modal" tabindex="-1" role="dialog">
@@ -414,6 +423,43 @@
       </div>
     </div>
   </div>
+
+
+
+
+  <!-- Login modal -->
+  <div class="modal fade js-modal" id="login-modal">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        
+          <div class="modal-header">
+            <div class="modal-title">Login as</div>
+          </div>
+
+          <div class="modal-body">
+            
+            <div id="login_inputs" class="form-group">
+              <form id="login_form" action="action">
+                <input type="text" class="form-control" id="login_email" placeholder="Username or Email">
+                <input type="password" class="form-control" id="login_password" placeholder="Password">
+                <button class="btn btn-success hidden" type="submit">Go</button>
+              </form> 
+            </div>
+          
+            <div id="form_error"></div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-success" type="submit" id="login_button">Login</button>
+            <button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+          </div>
+
+      </div>
+    </div>
+  </div>
+
+
 
 
    <!-- Div's for breakpoint detection -->

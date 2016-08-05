@@ -184,7 +184,7 @@ Template.layout.events({
     if(search_input.value){
 
       // log input
-      console.log('search_input ', search_input.value);
+      //console.log('search_input ', search_input.value);
 
       // trim whitespace from search input
       var search_trim_whitespace = search_input.value.trim();
@@ -202,7 +202,7 @@ Template.layout.events({
       var search_regex = new RegExp('(?=.*' +trim_excess_regex+ ').*','i');
 
       // log output regex and set it as search
-      console.log('search_regex', search_regex);
+      //console.log('search_regex', search_regex);
       search.set(search_regex); 
 
     } else {
@@ -525,6 +525,87 @@ Template.vr_admin_title.events({
 
 
 
+Template.site_info.events({
+  'click .js-logout':function(event){
+
+    if (Meteor.user()){
+
+      console.log('logging out...');
+
+      Meteor.logout(function(){
+        console.log('logged out');
+        return true;
+      });
+    } else {
+
+      console.log('not logged in');
+      return false;
+    }
+  }, 
+  'click #login_button' : function(event){
+
+    // submit login form when login button clicked
+    $('#login_form').submit();
+
+  },
+  'submit #login_form' : function(event, template){
+
+    event.preventDefault();
+
+    console.log('user login..');
+
+    // get login values
+    var login = template.find('#login_email').value
+    var password = template.find('#login_password').value;
+
+
+    if(!login&&!password){
+      console.log('no username or password');
+      $('#form_error').html('No Username or Email, or Password');
+      $('#login_email').focus();
+      return false;
+    }
+
+    if (!login){
+      console.log('no username or email');
+      $('#form_error').html('No Username or Email');
+      $('#login_email').focus();
+      return false;
+    }
+
+    if (!password){
+      console.log('no password');
+      $('#form_error').html('No Password');
+      $('#login_password').focus();
+      return false;
+    }
+
+    console.log('attempting login..');
+
+    Meteor.loginWithPassword(login, password, function(err){
+
+      if (err){
+        // login attempt failed
+        console.log(err);
+        $('#form_error').html(err.reason);
+      } else {
+        // user has been logged
+        console.log('logged in');
+        // reset error message
+        $('#form_error').html('');
+        // hide modal
+        $('#login-modal').modal('hide');
+        // scroll to top of page
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
+        return true;
+      }
+    });
+  },
+}); // End site_info events
+
+
+
+
 Template.vr_list.helpers({
   supported_title:function(){
 
@@ -564,7 +645,7 @@ Template.vr_list.helpers({
     }
 
     // echo final search object for debugging
-    console.log(search_obj);
+    console.log('search_obj', search_obj);
 
     // query database with search object
     return VR.find(search_obj, { sort: { 'draft': -1, 'title': 1 }});
