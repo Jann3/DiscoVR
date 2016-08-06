@@ -39,7 +39,7 @@
 
       <!-- Nav links for toggling -->
       <div class="collapse navbar-collapse" id="navbar-collapse-links">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav whitespace-fix">
           <li><p class="navbar-text">Headset:</p></li>
           <li><a href="#" class="js-headset" data-toggle="tooltip" data-placement="auto bottom" title="">Rift</a></li>
           <li><a href="#" class="js-headset" data-toggle="tooltip" data-placement="auto bottom" title="">Vive</a></li>
@@ -406,26 +406,25 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h3 class="modal-title">Discovering Virtual-Reality games made easy...</h3>
-          <p>DiscoVR is a web app that lets VR gamers find games they can play from various online stores.</p>
+          <p>DiscoVR is a web app that lets gamers find VR games they can play from various online stores.</p>
         </div>
         <div class="modal-body">
           <h3 class="modal-title">Using DiscoVR</h3>
           <p>1) First <strong>Select your VR Headset</strong> - and DiscoVR will find all the games you can play with it.</p>
           <p>
-            <button type="button" class="btn btn-default">Select Oculus Rift</button>
-            <button type="button" class="btn btn-default">Select HTC Vive</button>
+            <button type="button" class="btn btn-default js-set-rift">Select Oculus Rift</button>
+            <button type="button" class="btn btn-default js-set-vive">Select HTC Vive</button>
           </p>
-          <p>2) <strong>Filter your results</strong> by selecting any <strong>Controllers</strong> you own, or any <strong>Genres</strong> you wish to play</p>
-          <p>3) You can de-select filters at any time..</p>
-          <p>4) You can also <strong>Search</strong> for specific titles by clicking the search icon.
-            <button type="button" class="btn btn-default navbar-btn js-search-button" data-toggle="modal" data-target="#js-search-modal" data-dismiss="modal" data-tooltip="true" data-placement="bottom" title="search titles">
+          <p>2) Then <strong>Filter your results</strong> by selecting any <strong>Controllers</strong> you own, or any <strong>Genres</strong> you wish to play.</p>
+          <p>3) You can also <strong>Search</strong> for specific titles by clicking the Search icon.
+            <button type="button" class="btn btn-default navbar-btn js-search-button" data-toggle="modal" data-target="#js-search-modal" data-dismiss="modal">
               <i class="glyphicon glyphicon-search"></i>
             </button>
           </p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default hidden" data-dismiss="modal">Browse Results</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Browse All Games</button>
+          <button type="button" class="btn btn-success js-browse hidden" data-dismiss="modal">Browse Compatible Games</button>
+          <button type="button" class="btn btn-default js-browse-all" data-dismiss="modal">Just Browse All Games</button>
         </div>
       </div>
     </div>
@@ -440,7 +439,8 @@
       <div class="modal-content">
         
           <div class="modal-header">
-            <div class="modal-title">Login as</div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div class="modal-title">Admin Login:</div>
           </div>
 
           <div class="modal-body">
@@ -459,7 +459,7 @@
 
           <div class="modal-footer">
             <button class="btn btn-success" type="submit" id="login_button">Login</button>
-            <button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
           </div>
 
       </div>

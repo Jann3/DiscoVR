@@ -7006,6 +7006,15 @@ a.list-group-item-danger.active:focus {
   }
 }
 
+@media only screen and (min-width : 768px) {
+  #js-about-modal {
+    font-size: 1.1em;
+  }
+  #js-about-modal strong {
+    font-size: 1.1em;
+  }
+}
+
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 992px) {
 .navbar-text {
@@ -7075,19 +7084,27 @@ a.list-group-item-danger.active:focus {
   font-size: 21px;
 }
 
-#js-about-modal {
-  font-size: 1.1em;
-}
-
-#js-about-modal .modal-content, #js-about-modal button.close {
+#js-about-modal .modal-content, #js-about-modal button.close, #login-modal .modal-content, #login-modal button.close {
   background-color: #333333;
   color: #eeeeee;
 }
 
-#js-about-modal .modal-header, #js-about-modal .modal-footer, #js-about-modal hr {
+#js-about-modal .modal-header, #js-about-modal .modal-footer, #js-about-modal hr, #login-modal .modal-header, #login-modal .modal-footer, #login-modal hr {
   border-color: #3a3a3a;
 }
 
 .modal-open .modal, .btn:focus, .btn:active, a:focus {
     outline:none;
+}
+
+ul.whitespace-fix {
+  font-size: 0px;
+}
+ul.whitespace-fix li {
+  font-size: 16px;
+}
+
+#login-modal .modal-body {
+  background-color: #f5f5f5;
+  color: #333333;
 }
