@@ -34,6 +34,8 @@ Template.layout.events({
     var headset_html = $(event.currentTarget).closest('a').html();
     var navbar_headset = $('.navbar').find('.js-headset');
     var headset_contains_headset = $('.navbar .js-headset:contains("'+ headset_html +'")');
+    var rift_btn = $('.js-set-rift');
+    var vive_btn = $('.js-set-vive');
 
     // remove active class from all headset
     navbar_headset.parent('li').removeClass('active');
@@ -42,6 +44,11 @@ Template.layout.events({
       // if already selected, remove session, reset tooltip
       Session.set('headset', undefined);
       navbar_headset.attr('data-original-title', '');
+      rift_btn.removeClass('btn-success');
+      vive_btn.removeClass('btn-success');
+      rift_btn.addClass('btn-default');
+      vive_btn.addClass('btn-default');
+      $('.js-browse').addClass('hidden');
     } else {
       // else add to session and add active class
       Session.set('headset', headset_html);
@@ -59,6 +66,8 @@ Template.layout.events({
 
     // jQuery caching optimization
     var navbar_headset = $('.navbar').find('.js-headset');
+    var rift_btn = $('.js-set-rift');
+    var vive_btn = $('.js-set-vive');
 
     // remove active class from all headset
     navbar_headset.parent('li').removeClass('active');
@@ -66,6 +75,12 @@ Template.layout.events({
     // reset headset and tooltips
     Session.set('headset', undefined);
     navbar_headset.attr('data-original-title', '');
+
+    rift_btn.removeClass('btn-success');
+    vive_btn.removeClass('btn-success');
+    rift_btn.addClass('btn-default');
+    vive_btn.addClass('btn-default');
+    $('.js-browse').addClass('hidden');
 
     // remove focus
     navbar_headset.blur();
@@ -178,8 +193,6 @@ Template.layout.events({
     navbar_multiplayer.blur();
   },
   'keyup #search_input':function(event){
-    // prevent submit
-    event.preventDefault();
 
     if(search_input.value){
 
@@ -244,14 +257,31 @@ Template.layout.events({
       search.set(undefined);
     }
 
+    // jQuery caching optimization and hide tooltip
+    var search_btn = $('.js-search-button');
+    search_btn.attr('data-original-title', '');
+    search_btn.tooltip('hide');
+    search_btn.blur();
+
     // hide search modal
     $('#js-search-modal').modal('hide');
+
+    // call timeout function
+    setTimeout(function(){
+      // jQuery caching optimization and reset tooltip
+      var search_btn = $('.js-search-button');
+      search_btn.tooltip('hide');
+      search_btn.attr('data-original-title', 'search titles');
+      search_btn.blur();
+      // run after 300ms
+    }, 300);
+
   }, 
   'click .js-navbar-toggle':function(event){
     $('.js-navbar-toggle').tooltip('hide');
   }, 
   'click .js-search-button':function(event){
-    $('.js-search-button').tooltip('hide');
+    $('.js-search-button').attr('data-original-title', '');
   }, 
   'click .js-remove-search': function (event) {
     event.preventDefault();
@@ -334,6 +364,16 @@ Template.vr_filters.events({
 
     // remove active li's from navbar
     $('.navbar').find('li').removeClass('active');
+
+    // jQuery caching optimization
+    var rift_btn = $('.js-set-rift');
+    var vive_btn = $('.js-set-vive');
+
+    rift_btn.removeClass('btn-success');
+    vive_btn.removeClass('btn-success');
+    rift_btn.addClass('btn-default');
+    vive_btn.addClass('btn-default');
+    $('.js-browse').addClass('hidden');
   }, 
 }); // End vr_filters events
 
@@ -690,6 +730,13 @@ Template.site_info.events({
       $('html, body').animate({ scrollTop: 0 }, 'fast');
     }, 300);
   },
+  'click .js-browse': function (event) {
+    event.preventDefault();
+
+    setTimeout(function(){
+      $('html, body').animate({ scrollTop: 0 }, 'fast');
+    }, 300);
+  },
 }); // End site_info events
 
 
@@ -857,6 +904,25 @@ Template.vr_filters.helpers({
 
     if (filters_string){
       return filters_string;
+    } else {
+      return false;
+    }
+  }, 
+}); // End vr_filters helpers
+
+
+
+Template.site_info.helpers({
+  isRift:function(){
+    if(Session.get('headset')=='Rift'){
+      return true;
+    } else {
+      return false;
+    }
+  }, 
+  isVive:function(){
+    if(Session.get('headset')=='Vive'){
+      return true;
     } else {
       return false;
     }

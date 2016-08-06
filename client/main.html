@@ -215,6 +215,7 @@
   <!-- Seperator row -->
   <div class="row title-seperator">
     <div class="col-xs-12">
+      <br>
       <hr>
       <br>
     </div>
@@ -244,11 +245,11 @@
       <div class="container-fluid">
         <div class="row nopad">
           <div class="col-xs-6 nopad"> 
-            <h4 class="nopad">Headsets</h4>
+            <h4 class="nopad">{{#if draft}}Select Compatible {{/if}}Headsets</h4>
           </div>
 
           <div class="col-xs-6 text-right nopad"> 
-            <h4 class="nopad">Controllers &amp; Genres</h4>
+            <h4 class="nopad">{{#if draft}}Select {{/if}}Controllers &amp; Genres</h4>
           </div>
         </div>
       </div>
@@ -365,6 +366,7 @@
 
     </span>
     <br>
+    <br>
   </div>
   <!--End Title -->
 
@@ -412,19 +414,19 @@
           <h3 class="modal-title">Using DiscoVR</h3>
           <p>1) First <strong>Select your VR Headset</strong> - and DiscoVR will find all the games you can play with it.</p>
           <p>
-            <button type="button" class="btn btn-default js-set-rift">Select Oculus Rift</button>
-            <button type="button" class="btn btn-default js-set-vive">Select HTC Vive</button>
+            <button type="button" class="btn {{#if isRift}}btn-success{{else}}btn-default{{/if}} js-set-rift">Select Oculus Rift</button>
+            <button type="button" class="btn {{#if isVive}}btn-success{{else}}btn-default{{/if}} js-set-vive">Select HTC Vive</button>
           </p>
-          <p>2) Then <strong>Filter your results</strong> by selecting any <strong>Controllers</strong> you own, or any <strong>Genres</strong> you wish to play.</p>
-          <p>3) You can also <strong>Search</strong> for specific titles by clicking the Search icon.
+          <p>2) You can <strong>Filter your results</strong> by selecting any <strong>Controllers</strong> you own, or any <strong>Genres</strong> you wish to play.</p>
+          <p>3) To <strong>Search</strong> for specific titles click the Search icon.
             <button type="button" class="btn btn-default navbar-btn js-search-button" data-toggle="modal" data-target="#js-search-modal" data-dismiss="modal">
               <i class="glyphicon glyphicon-search"></i>
             </button>
           </p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success js-browse hidden" data-dismiss="modal">Browse Compatible Games</button>
-          <button type="button" class="btn btn-default js-browse-all" data-dismiss="modal">Just Browse All Games</button>
+          <button type="button" class="btn btn-success js-browse{{#unless isRift}}{{#unless isVive}}  hidden{{/unless}}{{/unless}}" data-dismiss="modal"><span class="hidden-xs">Browse </span>Compatible Games</button>
+          <button type="button" class="btn btn-default js-browse-all" data-dismiss="modal"><span class="hidden-xs">Just </span>Browse All Games</button>
         </div>
       </div>
     </div>
@@ -519,7 +521,6 @@
   {{#unless currentUser}}
   <script type="text/javascript">
     $(document).ready(function() {
-      //alert('hello');
       $('#js-about-modal').modal('show');
     });
   </script>
