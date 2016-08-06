@@ -407,8 +407,8 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h3 class="modal-title">Discovering Virtual-Reality games made easy...</h3>
-          <p>DiscoVR is a web app that lets gamers find VR games they can play from various online stores.</p>
+          <h3 class="modal-title">Discovering Virtual-Reality<span class="hidden-xs"> games made easy</span>...</h3>
+          <p>DiscoVR is a web app that lets gamers find<span class="hidden-xs"> compatible</span> VR games<span class="hidden-xs hidden-sm"> they can play from various online stores</span>.</p>
         </div>
         <div class="modal-body">
           <h3 class="modal-title">Using DiscoVR</h3>
@@ -417,8 +417,8 @@
             <button type="button" class="btn {{#if isRift}}btn-success{{else}}btn-default{{/if}} js-set-rift">Select Oculus Rift</button>
             <button type="button" class="btn {{#if isVive}}btn-success{{else}}btn-default{{/if}} js-set-vive">Select HTC Vive</button>
           </p>
-          <p>2) You can <strong>Filter your results</strong> by selecting any <strong>Controllers</strong> you own, or any <strong>Genres</strong> you wish to play.</p>
-          <p>3) To <strong>Search</strong> for specific titles click the Search icon.
+          <p>2) You can <strong>Filter your results</strong> by selecting any <strong>Controllers</strong> you own, or any <strong>Genres</strong> you <span class="hidden-xs">wish to play</span><span class="hidden-sm hidden-md hidden-lg">want</span>.</p>
+          <p>3) <strong>Search</strong> for specific titles by clicking<span class="hidden-xs"> the Search icon.</span>
             <button type="button" class="btn btn-default navbar-btn js-search-button" data-toggle="modal" data-target="#js-search-modal" data-dismiss="modal">
               <i class="glyphicon glyphicon-search"></i>
             </button>
@@ -485,26 +485,6 @@
 
       // initialize data-tooltip as tooltip (to allow data-toggle to open modal)
       $('[data-tooltip="true"]').tooltip();
-
-      // hide tooltip and focus search_input on search modal shown
-      $('#js-search-modal').on('shown.bs.modal', function () {
-        $('.js-search-button').tooltip('hide');
-        $('#search_input').select();
-      });
-
-      // login modal shown 
-      $('#login-modal').on('shown.bs.modal', function () {
-        if(!$('#login_email').val()){
-          // no login value - so focus input
-          $('#login_email').focus();
-        } else if(!$('#login_password').val()){
-          // no password value so focus input
-          $('#login_password').focus();
-        } else {
-          // focus login button
-          $('#login_button').focus();
-        }
-      });
 
     });
 

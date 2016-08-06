@@ -257,14 +257,23 @@ Template.layout.events({
       search.set(undefined);
     }
 
+    // hide search modal
+    $('#js-search-modal').modal('hide');
+
+  }, 
+  'shown.bs.modal #js-search-modal': function(event){
+
+    // hide tooltip and focus search_input on search modal shown
+    $('.js-search-button').tooltip('hide');
+    $('#search_input').select();
+  }, 
+  'hidden.bs.modal #js-search-modal': function(event){
+
     // jQuery caching optimization and hide tooltip
     var search_btn = $('.js-search-button');
     search_btn.attr('data-original-title', '');
     search_btn.tooltip('hide');
     search_btn.blur();
-
-    // hide search modal
-    $('#js-search-modal').modal('hide');
 
     // call timeout function
     setTimeout(function(){
@@ -273,10 +282,9 @@ Template.layout.events({
       search_btn.tooltip('hide');
       search_btn.attr('data-original-title', 'search titles');
       search_btn.blur();
-      // run after 300ms
-    }, 300);
-
-  }, 
+      // run after 100ms
+    }, 100);
+  },
   'click .js-navbar-toggle':function(event){
     $('.js-navbar-toggle').tooltip('hide');
   }, 
@@ -640,6 +648,20 @@ Template.site_info.events({
         return true;
       }
     });
+  }, 
+  'shown.bs.modal #login-modal': function(event){
+
+    // login modal shown 
+    if(!$('#login_email').val()){
+      // no login value - so focus input
+      $('#login_email').focus();
+    } else if(!$('#login_password').val()){
+      // no password value so focus input
+      $('#login_password').focus();
+    } else {
+      // focus login button
+      $('#login_button').focus();
+    }
   }, 
   'click .js-set-rift': function (event) {
     event.preventDefault();
