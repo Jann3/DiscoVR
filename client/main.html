@@ -471,6 +471,31 @@
 
 
 
+  <!-- Error modal -->
+  <div class="modal fade js-modal" id="error-modal">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div class="modal-title">Unfortunately</div>
+          </div>
+
+          <div class="modal-body" id="error-modal-message">
+
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn btn-default" data-dismiss="modal">OK</button>
+          </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
    <!-- Div's for breakpoint detection -->
   <div class="device-xs visible-xs"></div>
   <div class="device-sm visible-sm"></div>
@@ -486,6 +511,8 @@
       // initialize data-tooltip as tooltip (to allow data-toggle to open modal)
       $('[data-tooltip="true"]').tooltip();
 
+      // initialize popovers
+      $('[data-toggle="popover"]').popover()
     });
 
   </script>

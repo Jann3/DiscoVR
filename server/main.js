@@ -98,22 +98,36 @@ DDPRateLimiter.addRule({
 // Publish entire VR
 
 Meteor.publish('VR', function(){
-  if(this.userId){
-    // if logged in shows drafts first
-    return VR.find({}, { sort: { 'draft': -1, 'title': 1 }});
-  } else {
+  if(!this.userId){
+
     // show everything except drafts
     return VR.find({ draft : { $exists : false } }, { sort: { 'title': 1 }});
+  } else {
+
+    // if logged in shows drafts first
+    return VR.find({}, { sort: { 'draft': -1, 'title': 1 }});
   }
 });
 
 Meteor.publish('Users', function(){
-  return Meteor.users.find({});
+  if(!this.userId){
+
+    // no user nothing
+    return false;
+  } else {  
+
+    // logged in, can see users
+    return Meteor.users.find({});
+  }
 });
 
 Meteor.methods({
-  'VR.updateFeatureSupport': function(title_id, data_support, hasSupport){
-    if(Meteor.user()){
+  'VR.updateFeature': function(title_id, data_support, hasSupport){
+    if(!Meteor.user()){
+
+      throw new Meteor.Error('logged-out', 'The user must be logged in to update titles');
+
+    } else {
 
       // check params
       check(title_id, String);
@@ -121,22 +135,29 @@ Meteor.methods({
       check(hasSupport, Boolean);
 
       // log method params
-      console.log('updateFeatureSupport', title_id, data_support, hasSupport);
+      console.log('updateFeature', title_id, data_support, hasSupport);
 
       // build object using data_support as key
       var update_obj = {};
       update_obj[data_support] = hasSupport;
 
       // if title exists
-      if(VR.findOne({_id: title_id})){
+      if(!VR.findOne({_id: title_id})){
 
+        throw new Meteor.Error('unknown-id', 'Title not found');
+
+      } else {
         // update with object
         VR.update({_id: title_id}, { $set: update_obj});      
       }
     }
   },
   'VR.updateLink': function(title_id, link){
-    if(Meteor.user()){
+    if(!Meteor.user()){
+
+      throw new Meteor.Error('logged-out', 'The user must be logged in to update titles');
+
+    } else {
 
       // check params
       check(title_id, String);
@@ -159,6 +180,11 @@ Meteor.methods({
       if((isSteam && !isRift)||(!isSteam && isRift)){
 
         if(isSteam){
+
+          if (link.length > 40){
+          // link invalid
+            throw new Meteor.Error('link-mismatch', 'Link appears to be too long for a Steam URL');
+          }
           // build object from stripped steam link
           var update_obj = {};
           var steam_regex = new RegExp(steam_string,'g');
@@ -166,30 +192,51 @@ Meteor.methods({
           update_obj.steam_id = stripped_link;
 
         } else if (isRift){
+
+          if (link.length > 56){
+          // link invalid
+            throw new Meteor.Error('link-mismatch', 'Link appears to be too long for an Oculus URL');
+          }
+
           // build object from stripped rift link
           var update_obj = {};
           var rift_regex = new RegExp(rift_string,'g');
           stripped_link = link.replace(rift_regex,'');
           update_obj.rift_id = stripped_link;
           update_obj.support_rift = true;
+
+        } else {
+          // link invalid
+          throw new Meteor.Error('link-mismatch', 'Link doesn\'t appear to be a valid Steam or Oculus URL');
         }
+      } else {
+        // link invalid
+        throw new Meteor.Error('link-mismatch', 'Link doesn\'t appear to be a valid Steam or Oculus URL');
       }
 
       if(!update_obj){
         // no update object, dont update
-        return false;
+        throw new Meteor.Error('link-mismatch', 'Link doesn\'t appear to be a valid Steam or Oculus URL');
       }
 
       // if title exists
-      if(VR.findOne({_id: title_id})){
+      if(!VR.findOne({_id: title_id})){
 
+        throw new Meteor.Error('unknown-id', 'Title not found');
+
+      } else {
         // update with object
-        VR.update({_id: title_id}, { $set: update_obj});      
+        VR.update({_id: title_id}, { $set: update_obj});
+        return true;  
       }
     }
   }, 
   'VR.deleteTitle': function(title_id){
-    if(Meteor.user()){
+    if(!Meteor.user()){
+
+      throw new Meteor.Error('logged-out', 'The user must be logged in to delete titles');
+
+    } else {
 
       // check params
       check(title_id, String);
@@ -198,15 +245,22 @@ Meteor.methods({
       console.log('deleteTitle', title_id);
 
       // if title exists
-      if(VR.findOne({_id: title_id})){
+      if(!VR.findOne({_id: title_id})){
 
+        throw new Meteor.Error('unknown-id', 'Title not found');
+
+      } else {
         // remove title
         VR.remove({_id: title_id});      
       }
     }
   }, 
   'VR.updateTitle': function(title_id, new_title){
-    if(Meteor.user()){
+    if(!Meteor.user()){
+
+      throw new Meteor.Error('logged-out', 'The user must be logged in to update titles');
+
+    } else {
 
       // check params
       check(title_id, String);
@@ -220,25 +274,34 @@ Meteor.methods({
       update_obj.title = new_title;
 
       // if title exists
-      if(VR.findOne({_id: title_id})){
+      if(!VR.findOne({_id: title_id})){
 
+        throw new Meteor.Error('unknown-id', 'Title not found');
+
+      } else {
         // update with object
-        VR.update({_id: title_id}, { $set: update_obj});      
+        VR.update({_id: title_id}, { $set: update_obj});
+        return true;
       }
     }
   }, 
   'VR.newTitle': function(){
-    if(Meteor.user()){
+    if(!Meteor.user()){
 
-      // create a blank
-      var title_id = VR.insert({ draft: true, title: "", category: "games", support_rift: false, support_vive: false, support_singleplayer: false, support_multiplayer: false, support_gamepad: false, support_motion: false, support_kbm: false});
+      throw new Meteor.Error('logged-out', 'The user must be logged in to create titles');
 
-      // log title_id
-      console.log('newTitle', title_id);
+    } else {
+
+      // create a blank and title return _id
+      return VR.insert({ draft: true, title: "", category: "games", support_rift: false, support_vive: false, support_singleplayer: false, support_multiplayer: false, support_gamepad: false, support_motion: false, support_kbm: false});
     }
   }, 
   'VR.publishTitle': function(title_id){
-    if(Meteor.user()){
+    if(!Meteor.user()){
+
+      throw new Meteor.Error('logged-out', 'The user must be logged in to publish titles');
+
+    } else {
 
       // check params
       check(title_id, String);
@@ -251,8 +314,11 @@ Meteor.methods({
       update_obj.draft = true;
 
       // if title exists
-      if(VR.findOne({_id: title_id})){
+      if(!VR.findOne({_id: title_id})){
 
+        throw new Meteor.Error('unknown-id', 'Title not found');
+
+      } else {
         // update with object
         VR.update({_id: title_id}, { $unset: update_obj});      
       }

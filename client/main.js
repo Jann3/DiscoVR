@@ -336,15 +336,22 @@ Template.vr_list.events({
     }, 100).animate({
       // then half it
       height: '-=' + stretch_height
-    }, 0, function() {
-      // animation complete now create new title
-      Meteor.call('VR.newTitle');
-    });
+    }, 0); // end animation
 
-  } else {
-    // no element to animate, just create new title
-    Meteor.call('VR.newTitle');
-  }
+  } 
+
+  setTimeout(function(){
+  // no element to animate, just create new title
+  Meteor.call('VR.newTitle', function(error, result){
+    if(error){
+      $('#error-modal-message').text(error.reason);
+      $('#error-modal').modal('show');
+    } else {
+      console.log('newTitle', result);
+    }
+  });
+  // run after 100ms
+  }, 100);
 
   }, 
 }); // End vr_list events
@@ -407,8 +414,13 @@ Template.vr_admin_title.events({
 
     // if id and feature exist
     if(title_id && data_support){
-      // call VR.updateFeatureSupport with params and state
-      Meteor.call('VR.updateFeatureSupport', title_id, data_support, hasSupport);
+      // call VR.updateFeature with params and state
+      Meteor.call('VR.updateFeature', title_id, data_support, hasSupport, function(error){
+        if(error){
+          $('#error-modal-message').text(error.reason);
+          $('#error-modal').modal('show');
+        }
+      });
     }
   }, 
   'click .js-open-link': function (event) {
@@ -464,7 +476,12 @@ Template.vr_admin_title.events({
       $('#' + current_target).data('original-value', href_val);
 
       // call update
-      Meteor.call('VR.updateLink', title_id, href_val);
+      Meteor.call('VR.updateLink', title_id, href_val, function(error){
+        if(error){
+          $('#error-modal-message').text(error.reason);
+          $('#error-modal').modal('show');
+        }
+       });
 
     } else {
       // no href
@@ -495,7 +512,12 @@ Template.vr_admin_title.events({
       $('#'+title_id).find('.js-title').data('original-value', title_val);
 
       // call update
-      Meteor.call('VR.updateTitle', title_id, title_val);
+      Meteor.call('VR.updateTitle', title_id, title_val, function(error){
+        if(error){
+          $('#error-modal-message').text(error.reason);
+          $('#error-modal').modal('show');
+        }
+      });
 
     } 
   }, 
@@ -521,7 +543,12 @@ Template.vr_admin_title.events({
         console.log('deleting..', title_id);
 
         // call delete
-        Meteor.call('VR.deleteTitle', title_id);
+        Meteor.call('VR.deleteTitle', title_id, function(error){
+          if(error){
+            $('#error-modal-message').text(error.reason);
+            $('#error-modal').modal('show');
+          }
+        });
       });
     } 
   }, 
@@ -545,7 +572,12 @@ Template.vr_admin_title.events({
       console.log('publishing..', title_id);
 
       // call publish
-      Meteor.call('VR.publishTitle', title_id);
+      Meteor.call('VR.publishTitle', title_id, function(error){
+        if(error){
+          $('#error-modal-message').text(error.reason);
+          $('#error-modal').modal('show');
+        }
+      });
     } 
   }, 
   'change .js-change-input, keyup .js-change-input': function (event) {
@@ -735,6 +767,7 @@ Template.site_info.events({
       // do nothing
 
       } else {
+
       // jQuery caching optimization
       var navbar_headset = $('.navbar').find('.js-headset');
       var rift_btn = $('.js-set-rift');
