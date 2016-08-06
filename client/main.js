@@ -730,27 +730,32 @@ Template.site_info.events({
   'click .js-browse-all': function (event) {
     event.preventDefault();
 
-    // jQuery caching optimization
-    var navbar_headset = $('.navbar').find('.js-headset');
-    var headset_contains_headset = $('.navbar .js-headset:contains("Vive")');
-    var rift_btn = $('.js-set-rift');
-    var vive_btn = $('.js-set-vive');
 
-    // remove active class from all headset
-    navbar_headset.parent('li').removeClass('active');
+    if(!Session.get('headset')){
+      // do nothing
 
-    // remove headset from session
-    Session.set('headset', undefined);
-    navbar_headset.attr('data-original-title', '');
-    rift_btn.addClass('btn-default');
-    rift_btn.removeClass('btn-success');
-    vive_btn.addClass('btn-default');
-    vive_btn.removeClass('btn-success');
-    $('.js-browse').addClass('hidden');
+      } else {
+      // jQuery caching optimization
+      var navbar_headset = $('.navbar').find('.js-headset');
+      var rift_btn = $('.js-set-rift');
+      var vive_btn = $('.js-set-vive');
 
-    setTimeout(function(){
-      $('html, body').animate({ scrollTop: 0 }, 'fast');
-    }, 300);
+      // remove active class from all headset
+      navbar_headset.parent('li').removeClass('active');
+
+      // remove headset from session
+      Session.set('headset', undefined);
+      navbar_headset.attr('data-original-title', '');
+      rift_btn.addClass('btn-default');
+      rift_btn.removeClass('btn-success');
+      vive_btn.addClass('btn-default');
+      vive_btn.removeClass('btn-success');
+      $('.js-browse').addClass('hidden');
+
+      setTimeout(function(){
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
+      }, 300);
+    }
   },
   'click .js-browse': function (event) {
     event.preventDefault();
