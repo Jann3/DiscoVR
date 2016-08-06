@@ -6974,6 +6974,12 @@ a.list-group-item-danger.active:focus {
   border-color: #333333;
 }
 
+/* Default value for dyanmic-center */
+
+.dynamic-center {
+  text-align: left;
+}
+
 /* Custom, iPhone Retina */ 
 @media only screen and (min-width : 320px) {
 
@@ -7012,6 +7018,10 @@ a.list-group-item-danger.active:focus {
   }
   #js-about-modal strong {
     font-size: 1.1em;
+  }
+  /* Override value for dyanmic-center */
+  .dynamic-center {
+    text-align: center;
   }
 }
 

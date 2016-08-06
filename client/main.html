@@ -492,27 +492,19 @@
         $('#search_input').select();
       });
 
-
-      // window resize function for dynamic styling
-      $(window).resize(function () {
-
-        waitForFinalEvent(function(){
-
-        if( isBreakpoint('xs') ) {
-          $('.dynamic-center').removeClass('text-center');
+      // login modal shown 
+      $('#login-modal').on('shown.bs.modal', function () {
+        if(!$('#login_email').val()){
+          // no login value - so focus input
+          $('#login_email').focus();
+        } else if(!$('#login_password').val()){
+          // no password value so focus input
+          $('#login_password').focus();
         } else {
-          $('.dynamic-center').addClass('text-center');
+          // focus login button
+          $('#login_button').focus();
         }
-
-        }, 15, fullDateString.getTime())
       });
-
-    function isBreakpoint( alias ) {
-      return $('.device-' + alias).is(':visible');
-    }
-
-    var waitForFinalEvent=function(){var b={};return function(c,d,a){a||(a="I am a banana!");b[a]&&clearTimeout(b[a]);b[a]=setTimeout(c,d)}}();
-    var fullDateString = new Date();
 
     });
 
