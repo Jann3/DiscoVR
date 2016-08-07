@@ -34,6 +34,28 @@ Meteor.startup(function () {
       VR.insert({title: "The Climb", rift_id: "866068943510454", category: "games", support_rift: true, support_vive: false, support_singleplayer: true, support_multiplayer: false, support_gamepad: true, support_motion: false, support_kbm: false});
       VR.insert({title: "The Town of Light", steam_id: "433100", category: "games", support_rift: true, support_vive: false, support_singleplayer: true, support_multiplayer: false, support_gamepad: true, support_motion: false, support_kbm: true});
       VR.insert({title: "Raw Data", steam_id: "436320", category: "games", support_rift: false, support_vive: true, support_singleplayer: true, support_multiplayer: true, support_gamepad: false, support_motion: true, support_kbm: false});
+      VR.insert({title: "Radial-G: Racing Revolved", rift_id: "1138122202866373", steam_id: "330770", category: "games", support_rift: true, support_vive: true, support_singleplayer: true, support_multiplayer: true, support_gamepad: true, support_motion: false, support_kbm: true});
+      VR.insert({title: "DiRT Rally", rift_id: "992124094188963", steam_id: "310560", category: "games", support_rift: true, support_vive: false, support_singleplayer: true, support_multiplayer: true, support_gamepad: true, support_motion: false, support_kbm: true});
+      VR.insert({title: "Time Machine VR", rift_id: "1092474780792679", steam_id: "356180", category: "games", support_rift: true, support_vive: true, support_singleplayer: true, support_multiplayer: false, support_gamepad: true, support_motion: true, support_kbm: false});
+      VR.insert({title: "Job Simulator", steam_id: "448280", category: "games", support_rift: false, support_vive: true, support_singleplayer: true, support_multiplayer: false, support_gamepad: false, support_motion: true, support_kbm: false});
+      VR.insert({title: "VR Karts", rift_id: "810580345737938", steam_id: "422640", category: "games", support_rift: true, support_vive: true, support_singleplayer: true, support_multiplayer: true, support_gamepad: true, support_motion: true, support_kbm: false});
+      VR.insert({title: "The Lab", steam_id: "450390", category: "games", support_rift: false, support_vive: true, support_singleplayer: true, support_multiplayer: false, support_gamepad: false, support_motion: true, support_kbm: false});
+      VR.insert({title: "Space Pirate Trainer", steam_id: "418650", category: "games", support_rift: false, support_vive: true, support_singleplayer: true, support_multiplayer: false, support_gamepad: false, support_motion: true, support_kbm: false});
+      VR.insert({title: "Pool Nation VR", steam_id: "269170", category: "games", support_rift: false, support_vive: true, support_singleplayer: true, support_multiplayer: true, support_gamepad: false, support_motion: true, support_kbm: false});
+      VR.insert({title: "Mountain Goat Mountain", rift_id: "1250080495017274", category: "games", support_rift: true, support_vive: false, support_singleplayer: true, support_multiplayer: false, support_gamepad: true, support_motion: false, support_kbm: false});
+      VR.insert({title: "Chronos", rift_id: "929508627125435", category: "games", support_rift: true, support_vive: false, support_singleplayer: true, support_multiplayer: false, support_gamepad: true, support_motion: false, support_kbm: false});
+      VR.insert({title: "Edge of Nowhere", rift_id: "1026648920729545", category: "games", support_rift: true, support_vive: false, support_singleplayer: true, support_multiplayer: false, support_gamepad: true, support_motion: false, support_kbm: false});
+      VR.insert({title: "The Assembly", rift_id: "1268071846552963", steam_id: "497990", category: "games", support_rift: true, support_vive: true, support_singleplayer: true, support_multiplayer: false, support_gamepad: true, support_motion: false, support_kbm: true});
+      VR.insert({title: "ARK: Survival Evolved", steam_id: "346110", category: "games", support_rift: true, support_vive: false, support_singleplayer: true, support_multiplayer: true, support_gamepad: true, support_motion: false, support_kbm: true});
+      VR.insert({title: "EVE: Valkyrie", rift_id: "775907692521284", category: "games", support_rift: true, support_vive: false, support_singleplayer: true, support_multiplayer: true, support_gamepad: true, support_motion: false, support_kbm: false});
+      VR.insert({title: "Rooms: The Unsolvable Puzzle", rift_id: "828122903980238", steam_id: "331460", category: "games", support_rift: true, support_vive: true, support_singleplayer: true, support_multiplayer: false, support_gamepad: true, support_motion: true, support_kbm: false});
+      VR.insert({title: "Subnautica", rift_id: "993520564054974", steam_id: "264710", category: "games", support_rift: true, support_vive: false, support_singleplayer: true, support_multiplayer: true, support_gamepad: true, support_motion: false, support_kbm: true});
+      VR.insert({title: "Windlands", steam_id: "428370", category: "games", support_rift: true, support_vive: true, support_singleplayer: true, support_multiplayer: false, support_gamepad: true, support_motion: true, support_kbm: true});
+      VR.insert({title: "The House of the Dying Sun", rift_id: "993520564054974", steam_id: "283160", category: "games", support_rift: true, support_vive: true, support_singleplayer: true, support_multiplayer: false, support_gamepad: true, support_motion: false, support_kbm: false});
+      VR.insert({title: "Please Don't Touch Anything", rift_id: "1088797664494908", category: "games", support_rift: true, support_vive: false, support_singleplayer: true, support_multiplayer: false, support_gamepad: true, support_motion: false, support_kbm: false});
+      VR.insert({title: "Titans of Space 2.0", rift_id: "1023198204421743", steam_id: "468820", category: "games", support_rift: true, support_vive: true, support_singleplayer: true, support_multiplayer: false, support_gamepad: true, support_motion: true, support_kbm: true});
+      VR.insert({title: "Glitchspace", steam_id: "290060", category: "games", support_rift: true, support_vive: false, support_singleplayer: true, support_multiplayer: false, support_gamepad: true, support_motion: false, support_kbm: false});
+      VR.insert({title: "Bombsquad", rift_id: "900601920057477", category: "games", support_rift: true, support_vive: false, support_singleplayer: true, support_multiplayer: true, support_gamepad: true, support_motion: false, support_kbm: false});
 
       console.log('inserted sample data');
       
@@ -187,10 +209,11 @@ Meteor.methods({
             console.log('stripping link', link);
           }
 
-          // build object from stripped steam link
+          // build object from stripped steam link and strip slashes
           var update_obj = {};
           var steam_regex = new RegExp(steam_string,'g');
           stripped_link = link.replace(steam_regex,'');
+          stripped_link = stripped_link.replace('/','');
           update_obj.steam_id = stripped_link;
 
         } else if (isRift){
@@ -202,10 +225,11 @@ Meteor.methods({
             console.log('stripping link', link);
           }
 
-          // build object from stripped rift link
+          // build object from stripped rift link and strip slashes
           var update_obj = {};
           var rift_regex = new RegExp(rift_string,'g');
           stripped_link = link.replace(rift_regex,'');
+          stripped_link = stripped_link.replace('/','');
           update_obj.rift_id = stripped_link;
           update_obj.support_rift = true;
 
