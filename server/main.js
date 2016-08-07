@@ -182,9 +182,11 @@ Meteor.methods({
         if(isSteam){
 
           if (link.length > 40){
-          // link invalid
-            throw new Meteor.Error('link-mismatch', 'Link appears to be too long for a Steam URL');
+            // link is longer than expected, shortening
+            link = link.substring(0, 40);
+            console.log('stripping link', link);
           }
+
           // build object from stripped steam link
           var update_obj = {};
           var steam_regex = new RegExp(steam_string,'g');
@@ -194,8 +196,10 @@ Meteor.methods({
         } else if (isRift){
 
           if (link.length > 56){
-          // link invalid
-            throw new Meteor.Error('link-mismatch', 'Link appears to be too long for an Oculus URL');
+
+            // link is longer than expected, shortening
+            link = link.substring(0, 56);
+            console.log('stripping link', link);
           }
 
           // build object from stripped rift link
@@ -227,7 +231,7 @@ Meteor.methods({
       } else {
         // update with object
         VR.update({_id: title_id}, { $set: update_obj});
-        return true;  
+        return link;  
       }
     }
   }, 

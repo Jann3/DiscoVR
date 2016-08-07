@@ -473,15 +473,18 @@ Template.vr_admin_title.events({
 
       console.log('saving..', href_val);
 
-      // this might need changing
-      // set the data attribute
-      $('#' + current_target).data('original-value', href_val);
 
       // call update
-      Meteor.call('VR.updateLink', title_id, href_val, function(error){
+      Meteor.call('VR.updateLink', title_id, href_val, function(error, result){
         if(error){
           $('#error-modal-message').text(error.reason);
           $('#error-modal').modal('show');
+        } else {
+          console.log('res', result);
+          // set the value and data attribute
+          $('#' + current_target).val(result);
+          $('#' + current_target).data('original-value', result);
+          $('#' + current_target).css('background-color','#FFFFFF');
         }
        });
 
