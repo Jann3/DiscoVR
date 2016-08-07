@@ -309,7 +309,7 @@ Meteor.methods({
       } else {
         // update with object
         VR.update({_id: title_id}, { $set: update_obj});
-        return true;
+        return new_title;
       }
     }
   }, 

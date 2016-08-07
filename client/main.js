@@ -482,8 +482,8 @@ Template.vr_admin_title.events({
         } else {
           console.log('res', result);
           // set the value and data attribute
-          $('#' + current_target).val(result);
           $('#' + current_target).data('original-value', result);
+          $('#' + current_target).val(result);
           $('#' + current_target).css('background-color','#FFFFFF');
         }
        });
@@ -517,10 +517,16 @@ Template.vr_admin_title.events({
       $('#'+title_id).find('.js-title').data('original-value', title_val);
 
       // call update
-      Meteor.call('VR.updateTitle', title_id, title_val, function(error){
+      Meteor.call('VR.updateTitle', title_id, title_val, function(error, result){
         if(error){
           $('#error-modal-message').text(error.reason);
           $('#error-modal').modal('show');
+        } else {
+          console.log('res', result);
+          // set the value and data attribute
+          $('#' + title_id).find('.js-title').data('original-value', result);
+          $('#' + title_id).find('.js-title').val(result);
+          $('#' + title_id).find('.js-title').css('background-color','#FFFFFF');
         }
       });
 
@@ -613,12 +619,25 @@ Template.vr_admin_title.events({
       new_value = $(event.currentTarget).val()
       old_value = $(event.currentTarget).data('original-value');
 
-      if(new_value!=old_value){
-        // if not the same change bg
-        $(event.currentTarget).css('background-color','#E6E6FF');
-      } else {
-        // reset bg
+      if(new_value){
+
+        if(new_value!==old_value){
+
+          // if value and not the same as old value - blue bg
+          $(event.currentTarget).css('background-color','#E6E6FF');
+        } else {
+
+          // if value and old value same - white bg
+          $(event.currentTarget).css('background-color','#FFFFFF');
+        }
+      } else if(!old_value){
+
+        // no value and no old value - white bg
         $(event.currentTarget).css('background-color','#FFFFFF');
+      } else {
+
+        // no value but old value - blue bg
+        $(event.currentTarget).css('background-color','#E6E6FF');
       }
       // run after 100ms
     }, 100);
