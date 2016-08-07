@@ -7094,12 +7094,12 @@ a.list-group-item-danger.active:focus {
   font-size: 21px;
 }
 
-#js-about-modal .modal-content, #js-about-modal button.close, #login-modal .modal-content, #login-modal button.close {
+#js-about-modal .modal-content, #js-about-modal button.close, .modal-sm .modal-content, .modal-sm button.close {
   background-color: #333333;
   color: #eeeeee;
 }
 
-#js-about-modal .modal-header, #js-about-modal .modal-footer, #js-about-modal hr, #login-modal .modal-header, #login-modal .modal-footer, #login-modal hr {
+#js-about-modal .modal-header, #js-about-modal .modal-footer, #js-about-modal hr, .modal-sm .modal-header, .modal-sm .modal-footer, .modal-sm hr {
   border-color: #3a3a3a;
 }
 
@@ -7114,7 +7114,7 @@ ul.whitespace-fix li {
   font-size: 16px;
 }
 
-#login-modal .modal-body {
+.modal-sm .modal-body {
   background-color: #f5f5f5;
   color: #333333;
 }

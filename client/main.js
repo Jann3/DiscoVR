@@ -353,6 +353,8 @@ Template.vr_list.events({
   // run after 100ms
   }, 100);
 
+  $('.js-reset-filters').click();
+
   }, 
 }); // End vr_list events
 
@@ -558,7 +560,16 @@ Template.vr_admin_title.events({
     var current_event = $(event.currentTarget);
 
     // get title_id
-    var title_id = current_event.parents().closest('span').attr('id');
+    var title_id = $(event.currentTarget).parents().closest('span').attr('id');
+
+    // get value of input
+    var title_val = $('#'+title_id).find('.js-title').val();
+
+    if(!title_val){
+      $('#error-modal-message').text('Enter a Title before publishing');
+      $('#error-modal').modal('show');
+      return false;
+    }
 
     // if title_id
     if(!title_id){
@@ -567,6 +578,16 @@ Template.vr_admin_title.events({
       console.log('no title selected');
 
     } else {
+
+      var title_data = $('#'+title_id).find('.js-title').data('original-value');
+
+      console.log('title_data', title_data);
+
+      if(title_val!==title_data){
+
+        // they've entered a name so run with it
+        $('#'+title_id).find('.js-rename-title').click();
+      }
 
       // animate hide
       console.log('publishing..', title_id);
