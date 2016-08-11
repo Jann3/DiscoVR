@@ -17,7 +17,6 @@ ecmascript@0.5.7              # Enable ECMAScript2015+ syntax in app code
 
 twbs:bootstrap
 fortawesome:fontawesome
-iron:router
 reactive-var@1.0.10
 accounts-base@1.2.9
 accounts-ui@1.1.9
@@ -26,3 +25,5 @@ check@1.2.3
 standard-minifier-css@1.1.8
 standard-minifier-js@1.1.8
 accounts-password@1.2.14
+kadira:flow-router
+kadira:blaze-layout

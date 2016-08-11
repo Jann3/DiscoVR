@@ -3,19 +3,12 @@ VR = new Mongo.Collection('VR');
 Meteor.subscribe('VR');
 Meteor.subscribe('Users');
 
-// set up the main template the the router will use to build pages
-Router.configure({
-  layoutTemplate: 'layout'
-});
 
 //specify the top level route, the page users see when they arrive at the site
-Router.route('/', function () {
-  this.render('navbar', {to:'header'});
-
-  this.render('vr_list', {to:'main'});
-  
-  this.render('site_info', {to:'footer'}); 
-}, {
+FlowRouter.route('/', {
+  action: function(){
+    BlazeLayout.render('layout', { header: 'navbar', main: 'vr_list', footer: 'site_info' });
+  },
   name: 'main_page'
 });
 

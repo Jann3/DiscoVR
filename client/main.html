@@ -10,9 +10,9 @@
 
 
 <template name="layout">
-  {{> yield "header"}}
-  {{> yield "main"}}
-  {{> yield "footer"}}
+  {{> Template.dynamic template=header}}
+  {{> Template.dynamic template=main}}
+  {{> Template.dynamic template=footer}}
 </template>
 
 
@@ -376,6 +376,7 @@
 
 
 <template name="site_info">
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="container-fluid">
 
@@ -511,8 +512,6 @@
       // initialize data-tooltip as tooltip (to allow data-toggle to open modal)
       $('[data-tooltip="true"]').tooltip();
 
-      // initialize popovers
-      $('[data-toggle="popover"]').popover()
     });
 
   </script>
