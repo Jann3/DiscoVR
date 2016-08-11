@@ -355,8 +355,9 @@ Template.vr_list.events({
 
 
 Template.vr_filters.events({
-  'click .js-reset-filters': function () {
-
+  'click .js-reset-filters': function (event) {
+    event.preventDefault();
+    
     // reset session objects
     Session.set('headset', undefined);
     Session.set('support_gamepad', undefined);
