@@ -1,0 +1,26 @@
+{
+  "name": "discovr",
+  "version": "1.0.0",
+  "description": "web application for discovering virtual reality games and experiences",
+  "main": "main.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jann3/DiscoVR.git"
+  },
+  "keywords": [
+    "vr",
+    "portal",
+    "tool"
+  ],
+  "author": "Jann3",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jann3/DiscoVR/issues"
+  },
+  "homepage": "https://github.com/Jann3/DiscoVR#readme"
+}

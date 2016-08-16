@@ -1,5 +1,14 @@
-// define VR collection and subscribe
-VR = new Mongo.Collection('VR');
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
+import { ReactiveVar } from 'meteor/reactive-var';
+import { Session } from 'meteor/session';
+
+// import VR collection
+import { VR } from '../lib/collections.js';
+
+'use strict';
+
+// subscriptions
 Meteor.subscribe('VR');
 Meteor.subscribe('Users');
 
@@ -14,7 +23,7 @@ FlowRouter.route('/', {
 
 
 // define default_search regexp, use it to initialize a reactive var for searches
-var search = new ReactiveVar();
+var searchVar = new ReactiveVar();
 
 
 
@@ -26,7 +35,7 @@ Template.layout.events({
     // jQuery caching optimization
     var headset_html = $(event.currentTarget).closest('a').html();
     var navbar_headset = $('.navbar').find('.js-headset');
-    var headset_contains_headset = $('.navbar .js-headset:contains("'+ headset_html +'")');
+    var headset_contains_headset = $('.navbar').find('.js-headset:contains("'+ headset_html +'")');
     var rift_btn = $('.js-set-rift');
     var vive_btn = $('.js-set-vive');
 
@@ -209,11 +218,11 @@ Template.layout.events({
 
       // log output regex and set it as search
       //console.log('search_regex', search_regex);
-      search.set(search_regex); 
+      searchVar.set(search_regex); 
 
     } else {
       // no value clear search
-      search.set(undefined);
+      searchVar.set(undefined);
     }
 
   }, 
@@ -247,7 +256,7 @@ Template.layout.events({
 
     } else {
       // no value clear search
-      search.set(undefined);
+      searchVar.set(undefined);
     }
 
     // hide search modal
@@ -367,7 +376,7 @@ Template.vr_filters.events({
     Session.set('support_multiplayer', undefined);
 
     // clear search 
-    search.set(undefined);
+    searchVar.set(undefined);
     search_input.value = '';
 
     // reset tooltips
@@ -846,8 +855,8 @@ Template.vr_list.helpers({
     var search_obj = new Object();
 
     // get search string from reactive var
-    if(search.get()){
-      search_obj.title = search.get();
+    if(searchVar.get()){
+      search_obj.title = searchVar.get();
     }
 
     // add properties to search object dependant on session
@@ -943,14 +952,14 @@ Template.vr_title.helpers({
 
 Template.vr_filters.helpers({
   getSession:function(){
-    if(Session.get('headset')||Session.get('support_gamepad')||Session.get('support_motion')||Session.get('support_kbm')||Session.get('support_singleplayer')||Session.get('support_multiplayer')||search.get()){
+    if(Session.get('headset')||Session.get('support_gamepad')||Session.get('support_motion')||Session.get('support_kbm')||Session.get('support_singleplayer')||Session.get('support_multiplayer')||searchVar.get()){
       return true;
     } else {
       return false;
     }
   }, 
   getSearch:function(){
-    if (search.get()){
+    if (searchVar.get()){
 
       // trim whitespace from search input
       var search_trim_whitespace = search_input.value.trim();

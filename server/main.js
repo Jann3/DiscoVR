@@ -1,6 +1,11 @@
-// define VR collection
+import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
+import { check } from 'meteor/check';
 
-VR = new Mongo.Collection('VR');
+// import VR collection and subscribe
+import { VR } from '../lib/collections.js';
+
+'use strict';
 
 Meteor.startup(function () {
 // code to run on server at startup
