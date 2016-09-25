@@ -14,14 +14,20 @@ Meteor.startup(function () {
     // if no users
     if (Meteor.users.find().count() === 0){
 
-      // create a test account
-      // NEVER deploy without changing this !!
+      // *******************************************
+      // ** NEVER deploy without changing this !! **
+      // *******************************************
+      // these credentials are for admin login/testing
+      // change these to your own before deploying
+ 
       Accounts.createUser({
         username: "Test",
         email: "test@test.com",
         password: "test123",
       });
     }
+    // end test account
+
 
 
     if (!VR.findOne()){
