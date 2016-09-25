@@ -14,7 +14,8 @@ This project aims to create a simple and easy-to-use web application for discove
 
 This project requires [Meteor to be installed](https://www.meteor.com/install). Then [download DiscoVR](https://github.com/Jann3/DiscoVR/archive/master.zip), extract and run the meteor command inside the directory:
 
-```cd DiscoVR-master
+```
+cd DiscoVR-master
 meteor
 ```
 
